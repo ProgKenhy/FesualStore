@@ -1,13 +1,27 @@
 Django==5.0.6
+pillow==10.3.0
 gunicorn==22.0.0
 whitenoise==6.7.0
+django-allauth==0.63.3
 django-debug-toolbar==4.4.2
+djangorestframework==3.15.1
+django-extensions==3.2.3
+django-filter==24.2
+
+phonenumberslite==8.13.38
+django-phonenumber-field==7.3.0
 
 psycopg==3.1.19
 
 redis==5.0.6
+
+django-redis==5.4.0
 celery==5.4.0
 
 flake8==7.1.0
 isort==5.13.2
 black==24.4.2
+requests==2.32.3
+
+
+

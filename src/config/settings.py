@@ -38,6 +38,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
+
+    "products",
+    "users",
+    "orders",
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'django_extensions',
+    'rest_framework',
+    # 'allauth.socialaccount.providers.vk',
+
+    'phonenumber_field',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +64,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 if not TESTING:
@@ -79,6 +96,9 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+
+                'products.context_processors.categories',
+                'products.context_processors.baskets',
             ],
             "loaders": default_loaders if DEBUG else cached_loaders,
         },
@@ -141,10 +161,11 @@ CACHES = {
 # https://docs.celeryproject.org/en/stable/userguide/configuration.html
 CELERY_BROKER_URL = REDIS_URL
 CELERY_RESULT_BACKEND = REDIS_URL
+# CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ru-ru"
 TIME_ZONE = "UTC"
 USE_I18N = True
 USE_L10N = True
@@ -168,3 +189,45 @@ if DEBUG:
         "127.0.0.1",
         "10.0.2.2",
     ]
+
+# Users
+
+AUTH_USER_MODEL = 'users.User'
+LOGIN_URL = '/users/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Sending emails
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+else:
+    EMAIL_HOST = os.getenv('EMAIL_HOST')
+    EMAIL_PORT = os.getenv('EMAIL_PORT')
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+    EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
+    EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+
+# OAuth
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to log by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        'SCOPE': [
+            'user',
+            'user:email',
+        ],
+    }
+}
+
+SOCIALACCOUNT_QUERY_EMAIL = True

@@ -20,10 +20,19 @@ from django.contrib import admin
 from django.urls import include
 from django.urls import path
 
+from products.views import IndexView
+
 urlpatterns = [
     path("up/", include("up.urls")),
-    path("", include("pages.urls")),
+    # path("", include("pages.urls")),
     path("admin/", admin.site.urls),
+    path('', IndexView.as_view(), name='index'),
+    path('catalog/', include('products.urls', namespace='products')),
+    path('users/', include('users.urls', namespace='users')),
+    path('accounts/', include('allauth.urls')),
+    path('orders/', include('orders.urls', namespace='orders')),
+    # path("", include(static_urlpatterns)),
+    # path('api/', include('api.urls', namespace='api')),
 ]
 if not settings.TESTING:
     urlpatterns = [

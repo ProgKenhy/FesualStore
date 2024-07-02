@@ -1,0 +1,74 @@
+[
+  {
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+      "name": "Название новой вещи 1",
+      "description": "Разместите тут небольшое, но заманчивое,описание нового предложения.",
+      "price": "990.00",
+      "quantity": 1,
+      "image": "products_images/kofta_DBxFMBK.jpg",
+      "category": 1
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+      "name": "Кофта HILFIGER",
+      "description": "Кофта оригинальная в сине-чёрную полоску с пуговицами у воротника",
+      "price": "2990.00",
+      "quantity": 1,
+      "image": "products_images/hilfiger.jpg",
+      "category": 3
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+      "name": "Кофта berghaus",
+      "description": "Красная оригинальная кофта, супер качество",
+      "price": "3990.00",
+      "quantity": 1,
+      "image": "products_images/kofta.jpg",
+      "category": 3
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+      "name": "Кофта LEVIS",
+      "description": "Немного поношенная кофта, но это лишь придаёт ей крутизны",
+      "price": "990.00",
+      "quantity": 1,
+      "image": "products_images/levis.jpg",
+      "category": 3
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+      "name": "Джинсы Calvin Klein",
+      "description": "Джинсы имбовые, в школу кайф, самый крутой пацан на районе 100%",
+      "price": "4990.00",
+      "quantity": 1,
+      "image": "products_images/shanyi.jpg",
+      "category": 4
+    }
+  },
+  {
+    "model": "products.product",
+    "pk": 6,
+    "fields": {
+      "name": "Кофта Barbour",
+      "description": "Ну пример с белым фоном так-то",
+      "price": "6500.12",
+      "quantity": 1,
+      "image": "products_images/primer.jpg",
+      "category": 3
+    }
+  }
+]
