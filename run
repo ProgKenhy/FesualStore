@@ -86,8 +86,8 @@ function psql {
   # Connect to PostgreSQL
   # shellcheck disable=SC1091
   . .env
-#  _dc postgres psql -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" "${@}"
-  _dc postgres psql -U "${POSTGRES_USER}" "${@}"
+  _dc postgres psql -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" "${@}"
+#  _dc postgres psql -U "${POSTGRES_USER}" "${@}"
 
 #  PGPASSWORD="${POSTGRES_PASSWORD}" psql -h "${POSTGRES_HOST}" -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" "${@}"
 }
