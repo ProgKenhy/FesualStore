@@ -86,8 +86,7 @@ services:
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
     profiles: ["web"]
-    volumes:
-      - ./public_collected:/app/public_collected:ro
+
 
   worker:
     <<: *default-app
