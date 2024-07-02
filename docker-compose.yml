@@ -105,6 +105,17 @@ services:
   css:
     <<: *default-assets
     command: "../run yarn:build:css"
+    
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Монтируем файл конфигурации Nginx
+      - ./public_collected:/app/public_collected:ro  # Монтируем статические файлы
+    depends_on:
+      - web  # Зависимость от сервиса web (Django приложение)
+    restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
 
 volumes:
   postgres: {}
