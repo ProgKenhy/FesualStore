@@ -32,7 +32,7 @@ x-assets: &default-assets
       - "NODE_ENV=${NODE_ENV:-production}"
   env_file:
     - ".env"
-  profiles: ["assets"]
+  profiles: [ "assets" ]
   restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
   stop_grace_period: "0"
   tty: true
@@ -51,7 +51,7 @@ services:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       POSTGRES_DB: "${POSTGRES_DB}"
     image: "postgres:16.3-bookworm"
-    profiles: ["postgres"]
+    profiles: [ "postgres" ]
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
     volumes:
@@ -64,7 +64,7 @@ services:
           cpus: "${DOCKER_REDIS_CPUS:-0}"
           memory: "${DOCKER_REDIS_MEMORY:-0}"
     image: "redis:7.2.5-bookworm"
-    profiles: ["redis"]
+    profiles: [ "redis" ]
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
     volumes:
@@ -85,19 +85,19 @@ services:
       retries: 3
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
-    profiles: ["web"]
+    profiles: [ "web" ]
 
 
   worker:
     <<: *default-app
     command: celery -A config worker -l "${CELERY_LOG_LEVEL:-info}"
-    entrypoint: []
+    entrypoint: [ ]
     deploy:
       resources:
         limits:
           cpus: "${DOCKER_WORKER_CPUS:-0}"
           memory: "${DOCKER_WORKER_MEMORY:-0}"
-    profiles: ["worker"]
+    profiles: [ "worker" ]
 
   js:
     <<: *default-assets
@@ -106,7 +106,7 @@ services:
   css:
     <<: *default-assets
     command: "../run yarn:build:css"
-    
+
   nginx:
     image: nginx:latest
     ports:
@@ -119,13 +119,18 @@ services:
     restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
 
   certbot:
-    image: certbot/certbot
     container_name: certbot
+    image: certbot/certbot:latest
+    depends_on:
+      - nginx
+    command: >-
+             certonly --reinstall --webroot --webroot-path=/var/www/certbot
+             --email ${EMAIL} --agree-tos --no-eff-email
+             -d ${DOMAIN}
     volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h; done'"
+      - ./etc/letsencrypt:/etc/letsencrypt
+      - ./certbot/data:/var/www/certbot
 
 volumes:
-  postgres: {}
-  redis: {}
+  postgres: { }
+  redis: { }
