@@ -25,6 +25,7 @@ ENV NODE_ENV="${NODE_ENV}" \
     USER="node"
 
 COPY --chown=node:node . ..
+RUN chmod +x ../run
 
 RUN if [ "${NODE_ENV}" != "development" ]; then \
   ../run yarn:build:js && ../run yarn:build:css; else mkdir -p /app/public; fi
@@ -73,6 +74,8 @@ RUN if [ "${DEBUG}" = "false" ]; then \
   SECRET_KEY=dummyvalue python3 manage.py collectstatic --no-input; \
     else mkdir -p /app/public_collected; fi
 
+# Make sure the entrypoint script is executable
+RUN chmod +x /app/bin/docker-entrypoint-web
 ENTRYPOINT ["/app/bin/docker-entrypoint-web"]
 
 EXPOSE 8000
