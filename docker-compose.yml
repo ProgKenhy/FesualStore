@@ -132,3 +132,7 @@ services:
 volumes:
   postgres: { }
   redis: { }
+
+networks:
+  store_default:
+    driver: bridge
