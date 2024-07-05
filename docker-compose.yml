@@ -88,6 +88,8 @@ services:
     profiles: [ "web" ]
     volumes:
       - /var/certbot/conf:/etc/letsencrypt/:ro
+    networks:
+      - store_default
 
 
   worker:
@@ -121,6 +123,8 @@ services:
     depends_on:
       - web  # Зависимость от сервиса web (Django приложение)
     restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
+    networks:
+      - store_default
 
   certbot:
     image: certbot/certbot:latest
