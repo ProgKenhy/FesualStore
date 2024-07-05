@@ -133,6 +133,8 @@ services:
       - /var/certbot/www/:/var/www/certbot/:rw
     depends_on:
       - nginx
+    environment:
+      CERTBOT_PATH: /etc/letsencrypt/live/fesualstore.ru
     networks:
       - store_default
 
