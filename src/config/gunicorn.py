@@ -13,5 +13,5 @@ threads = int(os.getenv("PYTHON_MAX_THREADS", 1))
 
 reload = bool(strtobool(os.getenv("WEB_RELOAD", "false")))
 
-# certfile = "/etc/letsencrypt/live/your_domain.com/fullchain.pem"
-# keyfile = "/etc/letsencrypt/live/your_domain.com/privkey.pem"
+certfile = "/etc/letsencrypt/live/fesualstore.ru/fullchain.pem"
+keyfile = "/etc/letsencrypt/live/fesualstore.ru/privkey.pem"
