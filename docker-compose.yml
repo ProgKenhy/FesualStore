@@ -120,8 +120,10 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Монтируем файл конфигурации Nginx
       - ./public_collected:/app/public_collected:ro  # Монтируем статические файлы
 #      - /var/certbot/conf:/etc/letsencrypt/:ro
+      - /var/certbot/conf:/etc/letsencrypt
+      - /var/certbot/www:/var/www/certbot
     depends_on:
-      - web  # Зависимость от сервиса web (Django приложение)
+      - web
     restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
     networks:
       - store_default
