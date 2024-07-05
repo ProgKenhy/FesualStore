@@ -126,6 +126,8 @@ services:
       - /var/certbot/www/:/var/www/certbot/:rw
     depends_on:
       - nginx
+    networks:
+      - store_default
 
 volumes:
   postgres: { }
