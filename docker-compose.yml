@@ -56,6 +56,8 @@ services:
     stop_grace_period: "3s"
     volumes:
       - "postgres:/var/lib/postgresql/data"
+    networks:
+      - store_default
 
   redis:
     deploy:
@@ -69,6 +71,8 @@ services:
     stop_grace_period: "3s"
     volumes:
       - "redis:/data"
+    networks:
+      - store_default
 
   web:
     <<: *default-app
@@ -102,6 +106,8 @@ services:
           cpus: "${DOCKER_WORKER_CPUS:-0}"
           memory: "${DOCKER_WORKER_MEMORY:-0}"
     profiles: [ "worker" ]
+    networks:
+      - store_default
 
   js:
     <<: *default-assets
