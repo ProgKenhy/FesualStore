@@ -19,6 +19,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+from django.conf.urls.static import static
 
 from products.views import IndexView
 
@@ -34,6 +35,10 @@ urlpatterns = [
     # path("", include(static_urlpatterns)),
     # path('api/', include('api.urls', namespace='api')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
 if not settings.TESTING:
     urlpatterns = [
         *urlpatterns,
