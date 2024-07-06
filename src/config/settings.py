@@ -29,6 +29,9 @@ TESTING = "test" in sys.argv
 allowed_hosts = os.getenv("ALLOWED_HOSTS", ".localhost,127.0.0.1,[::1]")
 ALLOWED_HOSTS = list(map(str.strip, allowed_hosts.split(",")))
 
+# CSRF
+CSRF_TRUSTED_ORIGINS = ['https://fesualstore.ru', 'https://www.fesualstore.ru']
+
 # Application definitions
 INSTALLED_APPS = [
     "pages.apps.PagesConfig",
