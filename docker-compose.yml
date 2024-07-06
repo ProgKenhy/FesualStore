@@ -21,6 +21,7 @@ x-app: &default-app
   tty: true
   volumes:
     - "${DOCKER_WEB_VOLUME:-./public_collected:/app/public_collected}"
+    - /var/certbot/conf:/etc/letsencrypt/:ro
 
 x-assets: &default-assets
   build:
@@ -90,8 +91,6 @@ services:
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
     profiles: [ "web" ]
-    volumes:
-      - /var/certbot/conf:/etc/letsencrypt/:ro
     networks:
       - store_default
 
