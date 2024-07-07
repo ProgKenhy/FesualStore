@@ -49,8 +49,9 @@ RUN apt-get update \
   && groupadd -g "${GID}" python \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" python \
   && mkdir -p /public_collected public media \
-  && chown python:python -R /public_collected /app /media \
-  && chmod +x /media
+  && chown python:python -R /public_collected /app /media/ \
+#  && chown alexander -R /media/ \
+
 
 USER python
 
