@@ -67,7 +67,7 @@
                                 <div class="main-menu-nav-main nav-item">
                                     <form action="{% url 'users:logout' %}" method="post">
                                         {% csrf_token %}
-                                        <button type="submit">Выйти</button>
+                                        <button type="submit" class="btn-no-style">Выйти</button>
                                     </form>
                                 </div>
                             {% endif %}
