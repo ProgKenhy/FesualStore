@@ -181,7 +181,6 @@ STATICFILES_DIRS = ["/public", os.path.join(BASE_DIR, "..", "public")]
 STATIC_ROOT = "/public_collected"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-STATICFILES_DIRS = ["/public", os.path.join(BASE_DIR, "..", "public")]
 MEDIA_ROOT = os.path.join(BASE_DIR, "..", "media")
 MEDIA_URL = "/media/"
 
