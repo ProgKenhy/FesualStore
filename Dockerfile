@@ -50,7 +50,7 @@ RUN apt-get update \
   && useradd --create-home --no-log-init -u "${UID}" -g "${GID}" python \
   && mkdir -p /public_collected public media \
   && chown python:python -R /public_collected /app \
-  && chown alexander -R /media \
+#  && chown alexander -R /media \ # TODO root for change media
 
 
 USER python
