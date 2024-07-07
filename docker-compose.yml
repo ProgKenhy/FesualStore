@@ -58,8 +58,6 @@ services:
     stop_grace_period: "3s"
     volumes:
       - "postgres:/var/lib/postgresql/data"
-#    networks:
-#      - store_default
 
   redis:
     deploy:
@@ -73,8 +71,6 @@ services:
     stop_grace_period: "3s"
     volumes:
       - "redis:/data"
-#    networks:
-#      - store_default
 
   web:
     <<: *default-app
@@ -93,9 +89,9 @@ services:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
     expose:
       - "8000"
+#    command: bash -c "python manage.py migrate
+#      && python manage.py collectstatic --noinput"
     profiles: [ "web" ]
-#    networks:
-#      - store_default
 
 
   worker:
@@ -108,8 +104,6 @@ services:
           cpus: "${DOCKER_WORKER_CPUS:-0}"
           memory: "${DOCKER_WORKER_MEMORY:-0}"
     profiles: [ "worker" ]
-#    networks:
-#      - store_default
 
   js:
     <<: *default-assets
@@ -133,8 +127,6 @@ services:
     depends_on:
       - web
     restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
-#    networks:
-#      - store_default
 
   certbot:
     image: certbot/certbot:latest
@@ -145,8 +137,6 @@ services:
       - nginx
     environment:
       CERTBOT_PATH: /etc/letsencrypt/live/fesualstore.ru
-#    networks:
-#      - store_default
 
 volumes:
   postgres: { }
