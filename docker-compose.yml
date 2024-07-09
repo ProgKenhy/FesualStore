@@ -23,6 +23,7 @@ x-app: &default-app
     - "${DOCKER_WEB_VOLUME:-./public_collected:/app/public_collected}"
     - /var/certbot/conf:/etc/letsencrypt/:ro
     - ./media:/app/media
+    - ./public_collected:/app/public_collected:ro  # Монтируем статические файлы
 
 x-assets: &default-assets
   build:
@@ -89,8 +90,6 @@ services:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
     expose:
       - "8000"
-#    command: bash -c "python manage.py migrate
-#      && python manage.py collectstatic --noinput"
     profiles: [ "web" ]
 
 
@@ -119,7 +118,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/prod/:/etc/nginx/conf.d:ro  # Монтируем файл конфигурации Nginx
+      - ./nginx/dev/:/etc/nginx/conf.d:ro  # Монтируем файл конфигурации Nginx
       - ./public_collected:/app/public_collected:ro  # Монтируем статические файлы
       - ./media:/app/media # Монтируем медиа файлы
       - /var/certbot/conf:/etc/letsencrypt

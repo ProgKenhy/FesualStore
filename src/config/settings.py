@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     'django.contrib.humanize',
 
@@ -169,7 +170,7 @@ CELERY_RESULT_BACKEND = REDIS_URL
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 LANGUAGE_CODE = "ru-ru"
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Kaliningrad"
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
