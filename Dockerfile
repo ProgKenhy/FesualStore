@@ -77,7 +77,7 @@ RUN if [ "${DEBUG}" = "false" ]; then \
     else mkdir -p /app/public_collected; fi
 
 # Make sure the entrypoint script is executable
-RUN chmod +x /app/bin/docker-entrypoint-web
+RUN chmod +x bin/docker-entrypoint-web
 ENTRYPOINT ["/app/bin/docker-entrypoint-web"]
 
 EXPOSE 8000
