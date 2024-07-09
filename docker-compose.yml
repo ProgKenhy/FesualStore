@@ -23,7 +23,7 @@ x-app: &default-app
     - "${DOCKER_WEB_VOLUME:-./public_collected:/app/public_collected}"
     - /var/certbot/conf:/etc/letsencrypt/:ro
     - ./media:/app/media
-    - ./public_collected:/app/public_collected:ro  # Монтируем статические файлы
+    - ./public_collected:/app/public_collected  # Монтируем статические файлы
 
 x-assets: &default-assets
   build:
@@ -118,8 +118,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/dev/:/etc/nginx/conf.d:ro  # Монтируем файл конфигурации Nginx
-      - ./public_collected:/app/public_collected:ro  # Монтируем статические файлы
+      - ./nginx/prod/:/etc/nginx/conf.d:ro  # Монтируем файл конфигурации Nginx
+      - ./public_collected:/app/public_collected  # Монтируем статические файлы
       - ./media:/app/media # Монтируем медиа файлы
       - /var/certbot/conf:/etc/letsencrypt
       - /var/certbot/www:/var/www/certbot
