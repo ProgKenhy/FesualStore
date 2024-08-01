@@ -40,6 +40,8 @@ urlpatterns = [
     path('orders/', include('orders.urls', namespace='orders')),
     path("", include(static_urlpatterns)),
     # path('api/', include('api.urls', namespace='api')),
+    path('information/', include('information.urls', namespace='information')),
+
 ]
 
 if settings.DEBUG:

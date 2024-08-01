@@ -1,0 +1,38 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">История компании</h1>
+    <div class="row">
+        <div class="col-lg-12">
+            <p>История нашей компании началась с продаж на всеми известной площадке Avito. Там мы завоевали доверие со стороны множества покупателей, обрели опыт, после чего решили масштабировать наши продажи, переместив целевую аудиторию в мессенджер Telegram. Достигнув определённых высот, в продолжение развития, запустили собственный интернет-магазин.  </p>
+            <h3>Основные этапы нашего развития:</h3>
+            <ul class="timeline">
+                <li class="timeline-item">
+                    <h5>2018</h5>
+                    <p>Начало продаж.</p>
+                </li>
+                <li class="timeline-item">
+                    <h5>2022</h5>
+                    <p>Популяризация.</p>
+                </li>
+                <li class="timeline-item">
+                    <h5>2023</h5>
+                    <p>Переход в <a href="https://t.me/fesualstore">Telegram</a>.</p>
+                </li>
+                <li class="timeline-item">
+                    <h5>2024</h5>
+                    <p>Запуск интернет-магазина.</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Можно добавить JavaScript код для динамического поведения страницы, если это необходимо
+</script>
+{% endblock %}

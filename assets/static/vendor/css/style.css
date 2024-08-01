@@ -131,118 +131,8 @@ html {
 }
 
 
-.sels {
-    display: flex;
+.m-w-select{
     background: #F2EDEA;
-    min-height: 700px;
-    width: 100%;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.sels div {
-    font-weight: 400;
-    margin: 0;
-    font-family: 'Roboto Condensed', sans-serif;
-    font-size: 40px;
-    line-height: 1.1;
-    padding-bottom: 20px;
-}
-
-.new-items {
-    display: block;
-    height: auto;
-    width: 100%;
-    position: relative;
-    background: none;
-}
-
-.title-new-items {
-    display: flex;
-    margin-bottom: 20px;
-    margin-top: 50px;
-    width: 100%;
-    position: relative;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.new-items span {
-    font-weight: 545;
-    font-size: 30px;
-    font-family: "Segoe UI", Arial, sans-serif;
-}
-
-.container-new-items {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: auto;
-    margin-bottom: 30px;
-}
-
-.container-colomns {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-left: 10%;
-    margin-right: 10%;
-    background: #ffffff;
-    padding: 5px;
-
-}
-
-.container-col {
-    background: rgb(255, 251, 251);
-    margin: 15px;
-    box-shadow: 15px 20px 20px 4px rgba(0, 0, 0, 0.55);
-}
-
-.new-item-image {
-    display: block;
-    width: 268px;
-    aspect-ratio: 1280/1092;
-}
-
-.new-item-image img {
-    display: block;
-    width: 268px;
-    aspect-ratio: 7/9;
-}
-
-.new-item-info {
-    display: grid;
-    grid-template-columns: 1fr;
-    padding: 30px 25px;
-    box-sizing: border-box;
-}
-
-.new-item-name {
-    display: flex;
-    font-size: 20px;
-    font-weight: 700;
-    font-family: sans-serif;
-    margin: 10px
-}
-
-.new-item-describe {
-    display: flex;
-    font-size: 16px;
-    font-weight: 200;
-    font-family: sans-serif;
-    margin: 10px
-}
-
-.new-item-price {
-    display: flex;
-    font-size: 20px;
-    margin: 10px
 }
 
 .new-item-order {
@@ -266,7 +156,6 @@ html {
     outline-color: rgb(255, 255, 255);
     background: #FF8554;
 }
-
 
 .reviews {
     display: flex;
@@ -302,7 +191,6 @@ html {
     font-family: "Segoe UI", Arial, sans-serif;
 }
 
-
 .footer {
     background: rgb(61, 58, 58); /* серый фон */
     color: white;
@@ -317,4 +205,27 @@ html {
 
 .footer a:hover {
     text-decoration: underline;
+}
+
+.image-wrapper {
+    position: relative;
+    text-align: center;
+    height: 400px; /* Установите желаемую высоту */
+}
+
+.image-wrapper img {
+    width: 100%;
+    object-fit: cover; /* Заполнение контейнера изображением, сохраняя его пропорции */
+    height: 400px; /* Установите желаемую высоту */
+}
+
+.image-label {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 1.5em;
+    padding: 10px 0;
+    text-align: center;
 }

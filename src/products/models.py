@@ -2,9 +2,26 @@ from django.db import models
 
 from users.models import User
 
+SIZE_CHOICES = [
+    ('?', 'Unknown'),
+    ('XXS', 'XXS (32)'),
+    ('XS', 'XS (34)'),
+    ('S', 'S (36-38)'),
+    ('M', 'M (40-42)'),
+    ('L', 'L (44-46)'),
+    ('XL', 'XL (48)'),
+    ('XXL', 'XXL (50)'),
+    ('XXXL', 'XXXL (52-54)'),
+]
+
+GENDER_CHOICES = [
+    ('M', 'Мужское'),
+    ('F', 'Женское'),
+]
+
 
 class ProductCategory(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=31, unique=True)
     description = models.TextField(null=True, blank=True)
 
     class Meta:
@@ -16,13 +33,14 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField(max_length=63)
     description = models.TextField()
-    price = models.DecimalField(max_digits=8, decimal_places=2)
+    price = models.DecimalField(max_digits=9, decimal_places=2)
     quantity = models.PositiveIntegerField(default=0)
-    # image = models.ImageField(upload_to='products_images/')
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
-    avito_url = models.URLField(max_length=200, blank=False, default="")
+    size = models.CharField(max_length=15, choices=SIZE_CHOICES, default='Unknown')
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='U')
+    avito_url = models.URLField(max_length=250, default="", blank=True)
 
     class Meta:
         verbose_name = 'товар'
@@ -59,3 +77,7 @@ class Basket(models.Model):
 
     def sum(self):
         return self.product.price * self.quantity
+
+    def first_image(self):
+        first_image = self.product.images.first()
+        return first_image.image.url if first_image else None

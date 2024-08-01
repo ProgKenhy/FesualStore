@@ -1,0 +1,29 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Информация об оплате</h1>
+            <p>Мы предлагаем различные способы онлайн-оплаты для вашего удобства через YooKassa:</p>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+                    <h5>Банковская карта</h5>
+                    <p>Мы принимаем к оплате карты Visa, MasterCard и Мир. Оплата производится через безопасный платежный шлюз YooKassa.</p>
+                </li>
+                <li class="list-group-item">
+                    <h5>Электронные кошельки</h5>
+                    <p>Вы можете оплатить заказ через Яндекс.Деньги, WebMoney или Qiwi, используя YooKassa.</p>
+                </li>
+            </ul>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Важная информация</h5>
+                    <p class="card-text">Все платежи защищены и безопасны. Ваши данные передаются в зашифрованном виде через YooKassa и не сохраняются на наших серверах. При возникновении вопросов, пожалуйста, свяжитесь с нашей службой поддержки.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

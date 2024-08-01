@@ -1,0 +1,1 @@
+[{"model": "products.productimage", "pk": 2, "fields": {"image": "gallery/Штаны_Ellesse2.jpg", "product": 1}}, {"model": "products.productimage", "pk": 3, "fields": {"image": "gallery/Tommy_hilfiger_худи3.jpg", "product": 2}}]

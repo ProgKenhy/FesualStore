@@ -3,81 +3,109 @@
 
 
 {% block meta %}
-    <meta name="yandex-verification" content="480ded723217754d" />
-    <meta name="google-site-verification" content="rFU6hH2zpwsT7C0xtjLRMPv8BIj13DRMjpPlIsMDvsM" />
+    <meta name="yandex-verification" content="480ded723217754d"/>
+    <meta name="google-site-verification" content="rFU6hH2zpwsT7C0xtjLRMPv8BIj13DRMjpPlIsMDvsM"/>
+    <meta name="description"
+          content="Fesual Store - идеальный интернет-магазин для шоппинга. Здесь в одном удобном каталоге представлено множество брендов одежды, обуви, аксессуаров, спортивных товаров."/>
 {% endblock %}
 
 {% block content %}
     <section>
-        {#        <div class="sels">#}
-        {#            <div>Здесь скоро появятся товары по скидке</div>#}
-        {#        </div>#}
-
-        <div class="new-items">
-            <div class="title-new-items"><span>НОВИНКИ!</span></div>
-            <div class="container">
-                <div class="row align-items-stretch col-xs-6">
-                    {% if new_items %}
-                        {% for product in new_items %}
-                            <div class="col-lg-3 col-md-4 col-xs-10 col-xs-offset-2 col-sm-6 mb-3">
-                                <div class="card h-100 ">
-                                    <div id="carouselExampleIndicators-{{ product.id }}" class="carousel slide"
-                                         data-ride="carousel" data-interval="false">
-                                        <ol class="carousel-indicators">
-                                            {% for item in product.images.all %}
-                                                <li data-target="#carouselExampleIndicators-{{ product.id }}"
-                                                    data-slide-to="{{ forloop.counter0 }}" {% if forloop.first == 0 %}
-                                                    class="active" {% endif %}></li>
-                                            {% endfor %}
-                                        </ol>
-                                        <div class="carousel-inner" role="listbox">
-                                            {% for item in product.images.all %}
-                                                <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                                                    <img class="d-block img-fluid" src="{{ item.image.url }}"
-                                                         alt="Slide">
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                        {% if product.images.count > 1 %}
-                                            <a class="carousel-control-prev"
-                                               href="#carouselExampleIndicators-{{ product.id }}"
-                                               role="button" data-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                            <a class="carousel-control-next"
-                                               href="#carouselExampleIndicators-{{ product.id }}"
-                                               role="button" data-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">
-                                            <a href="#">{{ product.name }}</a>
-                                        </h4>
-                                        <h5>{{ product.price|intcomma }} руб.</h5>
-                                        <p class="card-text">{{ product.description }}</p>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <a class="btn btn-outline-success"
-                                           href="{% url 'products:basket_add' product.id %}">
-                                            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                                        </a>
-                                        <a class="btn btn-outline-success" href="{{ product.avito_url }}">
-                                            Перейти на Авито
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% endif %}
 
 
+        <div class="container-fluid p-5 m-w-select">
+            <div class="row justify-content-center">
+                <h2 class="">Выберите интересующий вас раздел</h2>
+            </div>
+            <div class="row justify-content-center p-3">
+                <div class="col-lg-4 col-xs-6 col-sm-6 px-0">
+                    <a href="{% url 'catalog:index' %}?gender=M">
+                        <div class="image-wrapper">
+                            <img class="d-block img-fluid" src="{% static 'vendor/images/home/men.jpg' %}"
+                                 alt="Men">
+                        </div>
+                        <span class="image-label">Мужчинам</span>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-xs-6 col-sm-6 px-0">
+                    <a href="{% url 'catalog:index' %}?gender=F">
+                        <div class="image-wrapper">
+                            <img class="d-block img-fluid" src="{% static 'vendor/images/home/women.jpg' %}"
+                                 alt="Women">
+                        </div>
+                        <span class="image-label">Женщинам</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row justify-content-center px-3">
+                <div class="col-lg-8 col-xs-12 col-sm-12 px-0">
+                    <img src="{% static 'vendor/images/brand.jpg' %}" alt="" width="100%">
                 </div>
             </div>
         </div>
+
+
+        <div class="container">
+            <div class="row justify-content-center p-3">
+                <h3>НОВИНКИ!</h3>
+            </div>
+            <div class="row align-items-stretch ">
+                {% if new_items %}
+                    {% for product in new_items %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-5">
+                            <div class="card h-100 ">
+                                <div id="carouselExampleIndicators-{{ product.id }}" class="carousel slide"
+                                     data-ride="carousel" data-interval="false">
+                                    <ol class="carousel-indicators">
+                                        {% for item in product.images.all %}
+                                            <li data-target="#carouselExampleIndicators-{{ product.id }}"
+                                                data-slide-to="{{ forloop.counter0 }}" {% if forloop.first == 0 %}
+                                                class="active" {% endif %}></li>
+                                        {% endfor %}
+                                    </ol>
+                                    <div class="carousel-inner" role="listbox">
+                                        {% for item in product.images.all %}
+                                            <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                                                <img class="d-block img-fluid" src="{{ item.image.url }}"
+                                                     alt="Slide">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% if product.images.count > 1 %}
+                                        <a class="carousel-control-prev"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
+                                           role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                        <a class="carousel-control-next"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
+                                           role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="#">{{ product.name }}</a>
+                                    </h4>
+                                    <h5>{{ product.price|intcomma }} руб.</h5>
+                                    <p class="card-text">{{ product.description }}</p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-outline-success"
+                                       href="{% url 'products:basket_add' product.id %}">
+                                        <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
 
         {#        <div class="reviews">#}
         {#            <div>Отзывы довольных покупателей</div>#}
@@ -90,8 +118,7 @@
 {% endblock %}
 
 {% block scripts %}
-{#    <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>#}
-    <script src=" {% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    {#    <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>#}
 
     <!-- FontAwesome script -->
     <script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>

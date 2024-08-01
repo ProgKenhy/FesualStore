@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
+from products.filters import ProductFilter
+
 
 from common.views import CommonMixin
 from products.models import Basket, Product
@@ -26,12 +28,18 @@ class CatalogListView(CommonMixin, ListView):
     def get_queryset(self):
         queryset = super(CatalogListView, self).get_queryset()
         category_id = self.kwargs.get('category_id')
-        return queryset.filter(category_id=category_id) if category_id else queryset
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+        return queryset
 
-    # def get_context_data(self, objects_list=None, **kwargs):
-    #     context = super(CatalogListView, self).get_context_data()
-    #     context['categories'] = ProductCategory.objects.all()
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(CatalogListView, self).get_context_data(**kwargs)
+        queryset = self.get_queryset()
+        filter = ProductFilter(self.request.GET, queryset=queryset)
+        context['filter'] = filter
+        context['object_list'] = filter.qs
+        context['current_category_id'] = self.kwargs.get('category_id')
+        return context
 
 
 @login_required

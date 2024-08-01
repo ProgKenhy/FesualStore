@@ -1,0 +1,46 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Наша команда</h1>
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img class="card-img-top " src="{% static 'vendor/images/team/Alexander.jpg' %}" alt="Член команды 1">
+                <div class="card-body">
+                    <h5 class="card-title">Черешенко Александр Юрьевич</h5>
+                    <p class="card-text">Разработчик</p>
+                    <p class="card-text">Воодушевлённый идеей собственного дела программист. Студент БФУ. Поддерживаю стабильность сайта.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="{% static 'vendor/images/team/Ivan.jpg' %}" alt="Член команды 2">
+                <div class="card-body">
+                    <h5 class="card-title">Фиськов Иван Николаевич</h5>
+                    <p class="card-text">Директор</p>
+                    <p class="card-text">Работаю с вещами много лет, сотрудничал с зарубежными компаниями, ответственный за отправку продукта.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card">
+                <img class="card-img-top" src="{% static 'vendor/images/team/Arina.jpg' %}" alt="Член команды 3">
+                <div class="card-body">
+                    <h5 class="card-title">Ковалева Арина Сергеeвна</h5>
+                    <p class="card-text">Заместитель директора</p>
+                    <p class="card-text">Занимаюсь подбором вещей, уходом за ними перед продажей.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Можно добавить JavaScript код для динамического поведения страницы, если это необходимо
+</script>
+{% endblock %}

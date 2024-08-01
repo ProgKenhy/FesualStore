@@ -1,0 +1,68 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Информация о доставке</h1>
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <h3>Способы доставки</h3>
+                <p>Мы предлагаем несколько вариантов доставки для вашего удобства:</p>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>Самовывоз:</strong> вы можете забрать заказ при личной встрече в пределах Гусева.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Почтовая доставка:</strong> отправка заказов по всей стране почтовыми службами.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>Курьерская доставка:</strong> быстрая доставка до двери в течение 3-10 рабочих дней.
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <h3>Сроки доставки</h3>
+                <p>Сроки доставки зависят от вашего местоположения и выбранного способа доставки:</p>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <strong>В пределах города:</strong> 1-2 рабочих дня.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>По региону:</strong> 2-3 рабочих дней.
+                    </li>
+                    <li class="list-group-item">
+                        <strong>По стране:</strong> 3-10 рабочих дней.
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Стоимость доставки</h3>
+                <p>Стоимость доставки зависит от суммы вашего заказа и выбранного способа доставки:</p>
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                    <tr>
+                        <th scope="col">Способ доставки</th>
+                        <th scope="col">Стоимость</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Самовывоз</td>
+                        <td>Бесплатно</td>
+                    </tr>
+                    <tr>
+                        <td>Почтовая доставка</td>
+                        <td>500 руб. (бесплатно для заказов свыше 3000 руб.)</td>
+                    </tr>
+                    <tr>
+                        <td>Курьерская доставка</td>
+                        <td>3000 руб. (бесплатно для заказов свыше 8000 руб.)</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

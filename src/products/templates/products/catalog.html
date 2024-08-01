@@ -1,8 +1,12 @@
 {% extends 'products/base.html' %}
 {% load static cache humanize %}
 
-{% block css %}
 
+{% block meta %}
+    <meta name="description"
+          content="Купить можно всего в два клика. На выбор  товары различных категорий: от масс-маркета до премиум-брендов. Коллекции обновляются постоянно, при этом многие новинки продаются со скидкой. Подлинность товара гарантирована."/>
+{% endblock %}
+{% block css %}
 {% endblock %}
 
 {% block content %}
@@ -29,97 +33,141 @@
 
             <div class="col-lg-9">
 
-                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner" role="listbox">
-                        <div class="carousel-item active">
-                            <img class="d-block img-fluid" src="{% static 'vendor/images/slides/slide-1.jpg' %}"
-                                 alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block img-fluid" src="{% static 'vendor/images/slides/slide-2.jpg' %}"
-                                 alt="Second slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block img-fluid" src="{% static 'vendor/images/slides/slide-3.jpg' %}"
-                                 alt="Third slide">
-                        </div>
+                {#                <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">#}
+                {#                    <ol class="carousel-indicators">#}
+                {#                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>#}
+                {#                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>#}
+                {#                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>#}
+                {#                    </ol>#}
+                {#                    <div class="carousel-inner" role="listbox">#}
+                {#                        <div class="carousel-item active">#}
+                {#                            <img class="d-block img-fluid" src="{% static 'vendor/images/slides/slide-1.jpg' %}"#}
+                {#                                 alt="First slide">#}
+                {#                        </div>#}
+                {#                        <div class="carousel-item">#}
+                {#                            <img class="d-block img-fluid" src="{% static 'vendor/images/slides/slide-2.jpg' %}"#}
+                {#                                 alt="Second slide">#}
+                {#                        </div>#}
+                {#                        <div class="carousel-item">#}
+                {#                            <img class="d-block img-fluid" src="{% static 'vendor/images/slides/slide-3.jpg' %}"#}
+                {#                                 alt="Third slide">#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {#                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">#}
+                {#                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>#}
+                {#                        <span class="sr-only">Previous</span>#}
+                {#                    </a>#}
+                {#                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">#}
+                {#                        <span class="carousel-control-next-icon" aria-hidden="true"></span>#}
+                {#                        <span class="sr-only">Next</span>#}
+                {#                    </a>#}
+                {#                </div>#}
+
+                {% if current_category_id %}
+                    <form method="get" action="{% url 'catalog:category' current_category_id %}"
+                          class="mb-4">
+                {% else %}
+                    <form method="get" action="{% url 'catalog:index' %}" class="mb-4">
+                {% endif %}
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="gender">Пол:</label>
+                        <select id="gender" name="gender" class="form-control">
+                            <option value="">Не выбрано</option>
+                            <option value="M" {% if request.GET.gender == "M" %}selected{% endif %}>Мужская</option>
+                            <option value="F" {% if request.GET.gender == "F" %}selected{% endif %}>Женская</option>
+                        </select>
                     </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
+                    <div class="form-group col-md-3">
+                        <label for="size">Размер:</label>
+                        <select id="size" name="size" class="form-control">
+                            <option value="">Не выбрано</option>
+                            <option value="XXS" {% if request.GET.size == "XXS" %}selected{% endif %}>XXS (32)
+                            </option>
+                            <option value="XS" {% if request.GET.size == "XS" %}selected{% endif %}>XS (34)</option>
+                            <option value="S" {% if request.GET.size == "S" %}selected{% endif %}>S (36-38)</option>
+                            <option value="M" {% if request.GET.size == "M" %}selected{% endif %}>M (40-42)</option>
+                            <option value="L" {% if request.GET.size == "L" %}selected{% endif %}>L (44-46)</option>
+                            <option value="XL" {% if request.GET.size == "XL" %}selected{% endif %}>XL (48)</option>
+                            <option value="XXL" {% if request.GET.size == "XXL" %}selected{% endif %}>XXL (50)
+                            </option>
+                            <option value="XXXL" {% if request.GET.size == "XXXL" %}selected{% endif %}>XXXL
+                                (52-54)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="price__gt">Цена от:</label>
+                        <input type="number" id="price__gt" name="price__gt" class="form-control"
+                               value="{{ request.GET.price__gt }}">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="price__lt">Цена до:</label>
+                        <input type="number" id="price__lt" name="price__lt" class="form-control"
+                               value="{{ request.GET.price__lt }}">
+                    </div>
                 </div>
+                <button type="submit" class="btn btn-primary">Фильтровать</button>
+                </form>
+
 
                 <div class="row">
-                    {% cache 30 object_list page_obj.number category_id %}
-                        {% for product in object_list %}
-                            <div class="col-lg-4 col-md-6 mb-4 ">
-                                <div class="card h-100">
+                    {#                    {% cache 30 object_list page_obj.number category_id %}#}
+                    {% for product in object_list %}
+                        <div class="col-lg-4 col-md-6 mb-4 ">
+                            <div class="card h-100">
 
-                                    <div id="carouselExampleIndicators-{{ product.id }}" class="carousel slide"
-                                         data-ride="carousel" data-interval="false">
-                                        <ol class="carousel-indicators">
-                                            {% for item in product.images.all %}
-                                                <li data-target="#carouselExampleIndicators-{{ product.id }}"
-                                                    data-slide-to="{{ forloop.counter0 }}" {% if forloop.first == 0 %}
-                                                    class="active" {% endif %}></li>
-                                            {% endfor %}
-                                        </ol>
-                                        <div class="carousel-inner" role="listbox">
-                                            {% for item in product.images.all %}
-                                                <div class="carousel-item {% if forloop.first %} active {% endif %}">
-                                                    <img class="d-block img-fluid" src="{{ item.image.url }}"
-                                                         alt="Slide">
-                                                </div>
-                                            {% endfor %}
-                                        </div>
-                                        {% if product.images.count > 1 %}
-                                            <a class="carousel-control-prev"
-                                               href="#carouselExampleIndicators-{{ product.id }}"
-                                               role="button" data-slide="prev">
-                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Previous</span>
-                                            </a>
-                                            <a class="carousel-control-next"
-                                               href="#carouselExampleIndicators-{{ product.id }}"
-                                               role="button" data-slide="next">
-                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                <span class="sr-only">Next</span>
-                                            </a>
-                                        {% endif %}
+                                <div id="carouselExampleIndicators-{{ product.id }}" class="carousel slide"
+                                     data-ride="carousel" data-interval="false">
+                                    <ol class="carousel-indicators">
+                                        {% for item in product.images.all %}
+                                            <li data-target="#carouselExampleIndicators-{{ product.id }}"
+                                                data-slide-to="{{ forloop.counter0 }}" {% if forloop.first == 0 %}
+                                                class="active" {% endif %}></li>
+                                        {% endfor %}
+                                    </ol>
+                                    <div class="carousel-inner" role="listbox">
+                                        {% for item in product.images.all %}
+                                            <div class="carousel-item {% if forloop.first %} active {% endif %}">
+                                                <img class="d-block img-fluid" src="{{ item.image.url }}"
+                                                     alt="Slide">
+                                            </div>
+                                        {% endfor %}
                                     </div>
-
-
-                                    <div class="card-body">
-                                        <h4 class="card-title">
-                                            <a href="#">{{ product.name }}</a>
-                                        </h4>
-                                        <h5>{{ product.price|intcomma }} руб.</h5>
-                                        <p class="card-text">{{ product.description }}</p>
-                                    </div>
-                                    <div class="card-footer text-center">
-                                        <a class="btn btn-outline-success"
-                                           href="{% url 'products:basket_add' product.id %}">
-                                            <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+                                    {% if product.images.count > 1 %}
+                                        <a class="carousel-control-prev"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
+                                           role="button" data-slide="prev">
+                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Previous</span>
                                         </a>
-                                        <a class="btn btn-outline-success"
-                                           href="{{ product.avito_url }}">
-                                            Перейти на Авито
+                                        <a class="carousel-control-next"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
+                                           role="button" data-slide="next">
+                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                            <span class="sr-only">Next</span>
                                         </a>
-                                    </div>
+                                    {% endif %}
+                                </div>
+
+
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="#">{{ product.name }}</a>
+                                    </h4>
+                                    <h5>{{ product.price|intcomma }} руб.</h5>
+                                    <p class="card-text">{{ product.description }}</p>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-outline-success"
+                                       href="{% url 'products:basket_add' product.id %}">
+                                        <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>
+                                    </a>
                                 </div>
                             </div>
-                        {% endfor %}
-                    {% endcache %}
+                        </div>
+                    {% endfor %}
+                    {#                    {% endcache %}#}
 
                 </div>
 
@@ -161,7 +209,5 @@
 {% block scripts %}
     <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src=" {% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-
-    <!-- FontAwesome script -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js"
-            crossorigin="anonymous"></script>{% endblock %}
+    <script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
+{% endblock %}

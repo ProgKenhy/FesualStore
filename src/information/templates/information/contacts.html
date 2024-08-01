@@ -1,0 +1,57 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Наши контакты</h1>
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <h3>Контактная информация</h3>
+            <p>Мы всегда рады ответить на ваши вопросы и помочь вам:</p>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>Telegram: </strong><a href="https://t.me/ivashkiniva" target="_blank">Написать</a>
+                </li>
+                <li class="list-group-item">
+                    <strong>Email:</strong> fesualstore@gmail.com
+                </li>
+                <li class="list-group-item">
+                    <strong>Адрес:</strong> Россия, Калининградская обл., г. Гусев
+                </li>
+                <li class="list-group-item">
+                    <strong>ИНН:</strong> 390203300414
+                </li>
+            </ul>
+        </div>
+        <div class="col-lg-6 mb-4">
+            <h3>Часы работы</h3>
+            <p>Наши часы работы:</p>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>Понедельник - Пятница:</strong> 9:00 - 21:00
+                </li>
+                <li class="list-group-item">
+                    <strong>Суббота:</strong> 10:00 - 16:00
+                </li>
+                <li class="list-group-item">
+                    <strong>Воскресенье:</strong> выходной
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <h3>Мы на карте</h3>
+            <div class="embed-responsive embed-responsive-16by9 mb-4">
+                <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d23334.422918621824!2d22.195503312832716!3d54.591909579857836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46b2d4e6f91d5b99%3A0xaade07f267f9b158!2sGusev%2C%20Kaliningrad%20Oblast%2C%20Russia%2C%20196180!5e0!3m2!1sen!2sru!4v1690586928245" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Можно добавить JavaScript код для динамического поведения страницы, если это необходимо
+</script>
+{% endblock %}

@@ -15,7 +15,7 @@ class ProductImageInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     inlines = [ProductImageInline, ]
     list_display = ('name', 'price', 'category')
-    fields = ('name', 'description', 'price', 'category', 'avito_url')
+    fields = ('name', 'description', 'price', 'category', 'size', 'gender', 'avito_url')
     search_fields = ('name', 'description')
 
 

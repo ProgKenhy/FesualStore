@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "products",
     "users",
     "orders",
+    "information",
 
     'allauth',
     'allauth.account',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'rest_framework',
     # 'allauth.socialaccount.providers.vk',
+    'django_filters',
 
     'phonenumber_field',
 ]
@@ -214,8 +216,11 @@ else:
     EMAIL_PORT = os.getenv('EMAIL_PORT')
     EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-    EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-    EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+    EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS') == 'True'  # Convert to boolean
+    EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL') == 'True'  # Convert to boolean
+
+    if EMAIL_USE_TLS and EMAIL_USE_SSL:
+        raise ValueError("EMAIL_USE_TLS and EMAIL_USE_SSL are mutually exclusive. Set only one to True.")
 
 # OAuth
 
@@ -238,3 +243,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SOCIALACCOUNT_QUERY_EMAIL = True
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
