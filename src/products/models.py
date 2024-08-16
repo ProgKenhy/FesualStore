@@ -40,7 +40,6 @@ class Product(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     size = models.CharField(max_length=15, choices=SIZE_CHOICES, default='Unknown')
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='U')
-    avito_url = models.URLField(max_length=250, default="", blank=True)
 
     class Meta:
         verbose_name = 'товар'

@@ -8,7 +8,7 @@
 #
 #     class Meta:
 #         model = Product
-#         fields = ('id', 'name', 'description', 'price', 'quantity', 'category', 'avito_url')
+#         fields = ('id', 'name', 'description', 'price', 'quantity', 'category')
 #
 #
 # class ProductImageSerializer(serializers.ModelSerializer):
