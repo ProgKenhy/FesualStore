@@ -1,6 +1,12 @@
-html {
+.html {
     position: relative;
     min-height: 100%;
+}
+
+.color-blue {
+    color: #1A01CC;
+    font-family: "MV Boli", sans-serif;
+    font-weight: bold;
 }
 
 .btn-no-style {
@@ -13,12 +19,16 @@ html {
     text-decoration: none;
 }
 
-.text-news{
+.text-news {
     color: #155724;
+    font-family: "Lucida Sans Unicode", serif;
+    font-weight: 550;
 }
 
-.text-choose{
+.text-choose {
     color: #155724;
+    font-family: "Lucida Sans Unicode", serif;
+    font-weight: 550;
 }
 
 .navbar-style {
@@ -139,7 +149,7 @@ html {
 }
 
 
-.m-w-select{
+.m-w-select {
     background: #F2EDEA;
 }
 
