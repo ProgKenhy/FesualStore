@@ -13,6 +13,14 @@ html {
     text-decoration: none;
 }
 
+.text-news{
+    color: #155724;
+}
+
+.text-choose{
+    color: #155724;
+}
+
 .navbar-style {
     background: #000000;
 }
