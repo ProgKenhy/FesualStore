@@ -22,7 +22,7 @@ class IndexView(CommonMixin, TemplateView):
 class CatalogListView(CommonMixin, ListView):
     model = Product
     template_name = 'products/catalog.html'
-    paginate_by = 9
+    paginate_by = 15
     title = 'Каталог'
 
     def get_queryset(self):
