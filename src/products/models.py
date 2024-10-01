@@ -4,14 +4,14 @@ from users.models import User
 
 SIZE_CHOICES = [
     ('?', 'Unknown'),
-    ('XXS', 'XXS (32)'),
-    ('XS', 'XS (34)'),
-    ('S', 'S (36-38)'),
-    ('M', 'M (40-42)'),
-    ('L', 'L (44-46)'),
-    ('XL', 'XL (48)'),
-    ('XXL', 'XXL (50)'),
-    ('XXXL', 'XXXL (52-54)'),
+    ('XXS', 'XXS (38-40)'),
+    ('XS', 'XS (40-42)'),
+    ('S', 'S (44-46)'),
+    ('M', 'M (46-48)'),
+    ('L', 'L (48-50)'),
+    ('XL', 'XL (50-52)'),
+    ('XXL', 'XXL (52-54)'),
+    ('XXXL', 'XXXL (54-56)'),
 ]
 
 GENDER_CHOICES = [

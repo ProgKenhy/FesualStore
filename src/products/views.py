@@ -30,14 +30,12 @@ class CatalogListView(CommonMixin, ListView):
         category_id = self.kwargs.get('category_id')
         if category_id:
             queryset = queryset.filter(category_id=category_id)
-        return queryset
+        filter = ProductFilter(self.request.GET, queryset=queryset)
+        return filter.qs
 
     def get_context_data(self, **kwargs):
         context = super(CatalogListView, self).get_context_data(**kwargs)
-        queryset = self.get_queryset()
-        filter = ProductFilter(self.request.GET, queryset=queryset)
-        context['filter'] = filter
-        context['object_list'] = filter.qs
+        context['filter'] = ProductFilter(self.request.GET, queryset=self.object_list)
         context['current_category_id'] = self.kwargs.get('category_id')
         return context
 
