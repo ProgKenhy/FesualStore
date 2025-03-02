@@ -74,9 +74,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card:hover {
-    transform: translateY(-10px);
-}
+/*.card:hover {*/
+/*    transform: translateY(-10px);*/
+/*}*/
 
 .card-title a {
     text-decoration: none;
@@ -246,4 +246,10 @@
     font-size: 1.5em;
     padding: 10px 0;
     text-align: center;
+}
+
+
+#togglePasswordIcon {
+    font-size: 1rem; /* Задайте фиксированный размер иконки */
+    vertical-align: middle; /* Выровняйте иконку по вертикали */
 }

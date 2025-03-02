@@ -6,8 +6,7 @@
     <meta name="description"
           content="Купить можно всего в два клика. На выбор  товары различных категорий: от масс-маркета до премиум-брендов. Коллекции обновляются постоянно, при этом многие новинки продаются со скидкой. Подлинность товара гарантирована."/>
 {% endblock %}
-{% block css %}
-{% endblock %}
+
 
 {% block content %}
 
@@ -266,6 +265,7 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ block.super }}
     <script src="{% static 'js/app.js' %}"></script>
     <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src=" {% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>

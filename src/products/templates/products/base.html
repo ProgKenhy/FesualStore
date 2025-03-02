@@ -1,153 +1,20 @@
+{% extends 'layouts/common_base.html' %}
 {% load static %}
 
 
-<!DOCTYPE html>
-<html lang="ru">
-
-<head>
-    <meta charset="utf-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    {#    <meta name="author" content=""/>#}
-    {% block meta %} {% endblock %}
-    <title>{{ title }}</title>
+{% block css %}
     <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
-
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
-    <link rel="icon" type="image/png" sizes="194x194" href="{% static 'favicon-194x194.png' %}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'android-chrome-192x192.png' %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'site.webmanifest' %}">
-    <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#fd80b3">
-    <meta name="theme-color" content="#fd80b3">
+{% endblock %}
 
 
-    {% block css %} {% endblock %}
-
-</head>
-
-<body class="d-flex flex-column min-vh-100">
-<header>
-{#    <div class="container-fluid helpful-links flex-wrap">#}
-{#        <span class="mr-3 text-secondary">Мы в соцсетях:</span>#}
-{#        <div class="d-inline-block ml-2 text-nowrap">#}
-{#            <i class="fab fa-telegram" style="color: #303030;"></i>#}
-{#            <a href="https://t.me/fesualstore">Telegram</a>#}
-{#        </div>#}
-{#        <div class="d-inline-block ml-2 text-nowrap">#}
-{#            <i class="fab fa-vk" style="color: #303030;"></i>#}
-{#            <a href="https://vk.com/vrodefesya">ВКонтакте</a>#}
-{#        </div>#}
-{#    </div>#}
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-style">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'img/icon.jpg' %}" alt="" width="50" height="50">
-                <span class="brand-name-style ml-3 align-middle">Fesual Store</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <div class="container">
-                        <div class="d-flex row">
-                            <div class="main-menu-nav-main nav-item"><a href="{% url 'index' %}">Главная</a></div>
-                            <div class="main-menu-nav-main nav-item"><a href="{% url 'catalog:index' %}">Каталог
-                                товаров</a></div>
-                            {% if not user.is_authenticated %}
-                                <div class="main-menu-nav-main nav-item">
-                                    <a href="{% url 'users:login' %}" target="_self">Войти</a>
-                                </div>
-                            {% else %}
-                                <div class="main-menu-nav-main nav-item">
-                                    <a href="{% url 'users:profile' user.id %}" target="_self">Профиль</a>
-                                </div>
-                                {% if user.is_superuser or user.is_staff %}
-                                    <div class="main-menu-nav-main nav-item">
-                                        <a href="{% url 'admin:index' %}" target="_self">Админ-панель</a>
-                                    </div>
-                                {% endif %}
-                                <div class="main-menu-nav-main nav-item">
-                                    <form action="{% url 'users:logout' %}" method="post">
-                                        {% csrf_token %}
-                                        <button type="submit" class="btn-no-style">Выйти</button>
-                                    </form>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-{% block content %} {% endblock %}
-
-<footer class="footer text-center mt-auto pt-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <h5>Покупателю</h5>
-                <ul class="list-unstyled pt-1">
-                    <li><a href="{% url 'information:delivery' %}" class="text-white">Доставка</a></li>
-                    <li><a href="{% url 'information:payment' %}" class="text-white">Оплата</a></li>
-                    <li><a href="{% url 'information:public-offer' %}" class="text-white">Публичная оферта</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>О нас</h5>
-                <ul class="list-unstyled pt-1">
-                    <li><a href="{% url 'information:team' %}" class="text-white">Команда</a></li>
-                    <li><a href="{% url 'information:company-history' %}" class="text-white">История компании</a></li>
-                </ul>
-            </div>
-            <div class="col-md-3">
-                <h5>Поддержка</h5>
-                <ul class="list-unstyled pt-1">
-                    <li><a href="{% url 'information:contacts' %}" class="text-white">Наши контакты</a></li>
-                    <li><a href="{% url 'information:faq' %}" class="text-white">Часто задаваемые вопросы</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-3">
-                <h5>Мы в соцсетях</h5>
-                <ul class="list-unstyled pt-1">
-                    <li><i class="fab fa-telegram" style="color: #2aabd2;"></i>
-                        <a href="https://t.me/fesualstore">Telegram</a></li>
-                    <li><i class="fab fa-vk" style="color: #005cbf;"></i>
-                        <a href="https://vk.com/vrodefesya">ВКонтакте</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <p>&copy; 2024 Fesual Store. Все права защищены.</p>
-            </div>
-        </div>
-    </div>
 
 
-    {#    <div class="container">#}
-    {#        <div class="row align-middle">#}
-    {#            <div class="col-12">#}
-    {#                © 2024 <a href="https://vk.com/spiritofire" target="_blank">Alexander</a>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-</footer>
-
-<!-- jQuery -->
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<!-- Bootstrap JavaScript -->
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<!-- FontAwesome script -->
-<script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
 
 
-{% block scripts %} 
+
+
+{% block scripts %}
+
+    <script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
+{% endblock %}
 

@@ -7,7 +7,7 @@ DC="${DC:-exec}"
 
 # If we're running in CI we need to disable TTY allocation for docker compose
 # commands that enable it by default, such as exec and run.
-TTY=""
+TTY="${TTY:-}"
 if [[ ! -t 1 ]]; then
   TTY="-T"
 fi
@@ -20,10 +20,8 @@ function _dc {
   docker compose "${DC}" ${TTY} "${@}"
 }
 
-function _build_run_down {
-  docker compose build
-  docker compose run ${TTY} "${@}"
-  docker compose down
+function _dc_run {
+   DC="run" _dc --no-deps --rm "${@}"
 }
 
 # -----------------------------------------------------------------------------
@@ -86,9 +84,7 @@ function psql {
   # Connect to PostgreSQL
   # shellcheck disable=SC1091
   . .env
-  _dc postgres psql -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" "${@}"
-#  _dc postgres psql -U "${POSTGRES_USER}" "${@}"
-#  PGPASSWORD="${POSTGRES_PASSWORD}" psql -h "${POSTGRES_HOST}" -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" "${@}"
+ _dc postgres psql -U "${POSTGRES_USER}" "${@}"
 }
 
 function redis-cli {
@@ -96,24 +92,31 @@ function redis-cli {
   _dc redis redis-cli "${@}"
 }
 
-function pip3:install {
-  # Install pip3 dependencies and write lock file
-  _build_run_down web bash -c "cd .. && bin/pip3-install"
+function deps:install {
+  local no_build="${1:-}"
+
+  [ -z "${no_build}" ] && docker compose down && docker compose build
+
+  _dc_run js yarn install
+  _dc_run web bash -c "cd .. && bin/pip3-install"
+}
+
+function pip3 {
+  cmd pip3 "${@}"
 }
 
 function pip3:outdated {
   # List any installed packages that are outdated
-  cmd pip3 list --outdated
+  _dc_run web pip3 list --outdated
 }
 
-function yarn:install {
-  # Install yarn dependencies and write lock file
-  _build_run_down js yarn install
+function yarn {
+  _dc js yarn "${@}"
 }
 
 function yarn:outdated {
   # List any installed packages that are outdated
-  _dc js yarn outdated
+  _dc_run js yarn outdated
 }
 
 function yarn:build:js {
@@ -133,12 +136,15 @@ function yarn:build:css {
   fi
 
   mkdir -p ../public/css
-  mkdir -p ../public/img
   # Используем PostCSS для обработки и минимизации
 #  DEBUG=0 postcss css/style.css -o ../public/css/style.css "${args[@]}"
   cp -r css/ ../public/
-  cp -r img/ ../public/
   cp -r static/* ../public/
+}
+
+function yarn:build:img {
+    mkdir -p ../public/img
+    cp -r img/ ../public/
 }
 
 function clean {

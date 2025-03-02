@@ -3,6 +3,7 @@
 
 
 {% block meta %}
+    {{ block.super }}
     <meta name="yandex-verification" content="480ded723217754d"/>
     <meta name="google-site-verification" content="rFU6hH2zpwsT7C0xtjLRMPv8BIj13DRMjpPlIsMDvsM"/>
     <meta name="description"
@@ -119,6 +120,7 @@
 {% endblock %}
 
 {% block scripts %}
+    {{ block.super }}
     {#    <script src=" {% static 'vendor/jquery/jquery.min.js' %}"></script>#}
 
     <!-- FontAwesome script -->

@@ -38,7 +38,7 @@ class UserProfileView(CommonMixin, UpdateView):
 
 class EmailVerificationView(CommonMixin, TemplateView):
     title = 'Подтверждение почты'
-    template_name = 'users/email_verification.html'
+    template_name = 'users/password/email_verification.html'
 
     def get(self, request, *args, **kwargs):
         code = kwargs['code']
@@ -53,9 +53,9 @@ class EmailVerificationView(CommonMixin, TemplateView):
 
 
 class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
-    template_name = 'users/password_reset.html'
-    email_template_name = 'users/password_reset_email.html'
-    subject_template_name = 'users/password_reset_subject'
+    template_name = 'users/password/password_reset.html'
+    email_template_name = 'users/password/password_reset_email.html'
+    subject_template_name = 'users/password/password_reset_subject'
     success_message = ("Мы отправили вам по электронной почте инструкции по установке пароля, если существует учетная"
                        " запись с указанным вами адресом электронной почты. Вы должны получить их в ближайшее время."
                        " Если вы не получили электронное письмо, Пожалуйста, убедитесь, что вы правильно ввели адрес,"

@@ -49,5 +49,6 @@
 {% endblock %}
 
 {% block scripts %}
-       <script src="{% static 'js/app.js' %}"></script>
+    {{ block.super }}
+    <script src="{% static 'js/app.js' %}"></script>
 {% endblock %}

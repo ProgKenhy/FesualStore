@@ -1,5 +1,5 @@
 # Этап для фронтенда (assets)
-FROM node:20.6.1-bookworm-slim AS assets
+FROM node:22.14.0-bookworm-slim AS assets
 WORKDIR /app/assets
 
 ARG UID=1000
@@ -24,14 +24,14 @@ ENV NODE_ENV="${NODE_ENV}" \
 COPY --chown=node:node . ..
 
 RUN if [ "${NODE_ENV}" != "development" ]; then \
-  ../run yarn:build:js && ../run yarn:build:css; else mkdir -p /app/public; fi
+  ../run yarn:build:js && ../run yarn:build:css && ../run yarn:build:img; else mkdir -p /app/public; fi
 
 CMD ["bash"]
 
 ###############################################################################
 
 # Этап для бэкенда (app)
-FROM python:3.12.4-slim-bookworm AS app
+FROM python:3.13.2-slim-bookworm AS app
 WORKDIR /app
 
 ARG UID=1000

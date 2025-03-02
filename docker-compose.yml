@@ -53,7 +53,7 @@ services:
     volumes:
       - "postgres:/var/lib/postgresql/data"
     healthcheck:
-      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_USER}" ]
+      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}" ]
       interval: 10s
       retries: 5
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
@@ -130,6 +130,10 @@ services:
   css:
     <<: *default-assets
     command: "../run yarn:build:css"
+
+  img:
+    <<: *default-assets
+    command: "../run yarn:build:img"
 
   nginx:
     image: nginx:latest
