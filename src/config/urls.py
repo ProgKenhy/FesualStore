@@ -31,7 +31,6 @@ static_urlpatterns = [
 
 urlpatterns = [
     path("up/", include("up.urls")),
-    # path("", include("pages.urls")),
     path("admin/", admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('catalog/', include('products.urls', namespace='products')),
