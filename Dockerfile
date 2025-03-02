@@ -1,6 +1,5 @@
+# Этап для фронтенда (assets)
 FROM node:20.6.1-bookworm-slim AS assets
-LABEL maintainer="Nick Janetakis <nick.janetakis@gmail.com>"
-
 WORKDIR /app/assets
 
 ARG UID=1000
@@ -14,18 +13,15 @@ RUN apt-get update \
   && mkdir -p /node_modules && chown node:node -R /node_modules /app
 
 USER node
-
 COPY --chown=node:node assets/package.json assets/*yarn* ./
-
 RUN yarn install && yarn cache clean
 
-ARG NODE_ENV="production"
+ARG NODE_ENV="development"
 ENV NODE_ENV="${NODE_ENV}" \
     PATH="${PATH}:/node_modules/.bin" \
     USER="node"
 
 COPY --chown=node:node . ..
-RUN chmod +x ../run
 
 RUN if [ "${NODE_ENV}" != "development" ]; then \
   ../run yarn:build:js && ../run yarn:build:css; else mkdir -p /app/public; fi
@@ -34,9 +30,8 @@ CMD ["bash"]
 
 ###############################################################################
 
+# Этап для бэкенда (app)
 FROM python:3.12.4-slim-bookworm AS app
-LABEL maintainer="Nick Janetakis <nick.janetakis@gmail.com>"
-
 WORKDIR /app
 
 ARG UID=1000
@@ -54,13 +49,12 @@ RUN apt-get update \
 
 
 USER python
-
 COPY --chown=python:python requirements*.txt ./
 COPY --chown=python:python bin/ ./bin
 
 RUN chmod 0755 bin/* && bin/pip3-install
 
-ARG DEBUG="false"
+ARG DEBUG="true"
 ENV DEBUG="${DEBUG}" \
     PYTHONUNBUFFERED="true" \
     PYTHONPATH="." \
@@ -81,5 +75,4 @@ RUN chmod +x /app/bin/docker-entrypoint-web
 ENTRYPOINT ["/app/bin/docker-entrypoint-web"]
 
 EXPOSE 8000
-
 CMD ["gunicorn", "-c", "python:config.gunicorn", "config.wsgi"]

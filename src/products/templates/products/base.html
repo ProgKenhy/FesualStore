@@ -11,6 +11,8 @@
     {#    <meta name="author" content=""/>#}
     {% block meta %} {% endblock %}
     <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
 
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon-32x32.png' %}">
@@ -22,9 +24,7 @@
     <meta name="msapplication-TileColor" content="#fd80b3">
     <meta name="theme-color" content="#fd80b3">
 
-    <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css/style.css' %}"/>
+
     {% block css %} {% endblock %}
 
 </head>
@@ -45,7 +45,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-style">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'vendor/images/icon.jpg' %}" alt="" width="50" height="50">
+                <img src="{% static 'img/icon.jpg' %}" alt="" width="50" height="50">
                 <span class="brand-name-style ml-3 align-middle">Fesual Store</span>
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -150,45 +150,4 @@
 
 
 {% block scripts %} 
-<script>
-	# chat/consumers.py
-import json
 
-from channels.generic.websocket import AsyncWebsocketConsumer
-
-
-class ChatConsumer(AsyncWebsocketConsumer):
-    async def connect(self):
-        self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
-        self.room_group_name = f"chat_{self.room_name}"
-
-        # Join room group
-        await self.channel_layer.group_add(self.room_group_name, self.channel_name)
-
-        await self.accept()
-
-    async def disconnect(self, close_code):
-        # Leave room group
-        await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
-
-    # Receive message from WebSocket
-    async def receive(self, text_data):
-        text_data_json = json.loads(text_data)
-        message = text_data_json["message"]
-
-        # Send message to room group
-        await self.channel_layer.group_send(
-            self.room_group_name, {"type": "chat.message", "message": message}
-        )
-
-    # Receive message from room group
-    async def chat_message(self, event):
-        message = event["message"]
-
-        # Send message to WebSocket
-        await self.send(text_data=json.dumps({"message": message}))
-{% endblock %}
-
-</body>
-
-</html>
