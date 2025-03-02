@@ -13,6 +13,8 @@
     <title>{{ title }}</title>
 
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'icon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'icon/favicon-32x32.png' %}">
@@ -45,7 +47,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark navbar-style">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'img/icon.jpg' %}" alt="Logo" width="50" height="50">
+                <img src="{% static 'img/icon.jpg' %}" alt="" width="50" height="50">
                 <span class="brand-name-style ms-3 align-middle">Fesual Store</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
@@ -53,33 +55,37 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto d-flex align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'index' %}">Главная</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'catalog:index' %}">Каталог товаров</a>
-                    </li>
-                    {% if not user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:profile' user.id %}">Профиль</a>
-                        </li>
-                        {% if user.is_superuser or user.is_staff %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'admin:index' %}">Админ-панель</a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item">
-                            <form action="{% url 'users:logout' %}" method="post" class="d-inline">
-                                {% csrf_token %}
-                                <button type="submit" class="btn btn-link nav-link p-0">Выйти</button>
-                            </form>
-                        </li>
-                    {% endif %}
+                <ul class="navbar-nav ms-auto">
+                    <div class="container">
+                        <div class="d-flex flex-row">
+                            <div class="main-menu-nav-main nav-item"><a href="{% url 'index' %}" class="nav-link">Главная</a>
+                            </div>
+                            <div class="main-menu-nav-main nav-item"><a href="{% url 'catalog:index' %}"
+                                                                        class="nav-link">Каталог товаров</a></div>
+                            {% if not user.is_authenticated %}
+                                <div class="main-menu-nav-main nav-item">
+                                    <a href="{% url 'users:login' %}" class="nav-link" target="_self">Войти</a>
+                                </div>
+                            {% else %}
+                                <div class="main-menu-nav-main nav-item">
+                                    <a href="{% url 'users:profile' user.id %}" class="nav-link"
+                                       target="_self">Профиль</a>
+                                </div>
+                                {% if user.is_superuser or user.is_staff %}
+                                    <div class="main-menu-nav-main nav-item">
+                                        <a href="{% url 'admin:index' %}" class="nav-link"
+                                           target="_self">Админ-панель</a>
+                                    </div>
+                                {% endif %}
+                                <div class="main-menu-nav-main nav-item">
+                                    <form action="{% url 'users:logout' %}" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn-no-style nav-link">Выйти</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </ul>
             </div>
         </div>
