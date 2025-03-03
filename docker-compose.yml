@@ -148,8 +148,8 @@ services:
       - web
       - daphne
     restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
-    networks:
-      - store_default
+#    networks:
+#      - store_default
 
   certbot:
     image: certbot/certbot:latest
@@ -160,13 +160,13 @@ services:
       - nginx
     environment:
       CERTBOT_PATH: /etc/letsencrypt/live/fesualstore.ru
-    networks:
-      - store_default
+#    networks:
+#      - store_default
 
 volumes:
   postgres: { }
   redis: { }
 
-networks:
-  store_default:
-    driver: bridge
+#networks:
+#  store_default:
+#    driver: bridge
