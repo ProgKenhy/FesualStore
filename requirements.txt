@@ -39,7 +39,7 @@ mypy-extensions==1.0.0
 packaging==24.2
 pathspec==0.12.1
 phonenumberslite==8.13.38
-pillow==10.3.0
+pillow
 platformdirs==4.3.6
 prompt_toolkit==3.0.50
 psycopg==3.2.3
