@@ -5,7 +5,7 @@ autobahn==24.4.2
 Automat==24.8.1
 billiard==4.2.1
 black==24.4.2
-celery==5.5.0rc1
+celery==5.3.6
 certifi==2025.1.31
 cffi==1.17.1
 channels==4.2.0
@@ -54,7 +54,7 @@ python-dotenv==1.0.1
 redis==5.2.0
 requests==2.32.3
 service-identity==24.2.0
-setuptools==72.1.0
+setuptools
 six==1.17.0
 sqlparse==0.5.3
 Twisted==24.11.0
@@ -64,6 +64,6 @@ tzdata==2025.1
 urllib3==2.3.0
 vine==5.1.0
 wcwidth==0.2.13
-wheel==0.43.0
+wheel
 whitenoise==6.8.2
 zope.interface==7.2
