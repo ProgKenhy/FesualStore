@@ -14,8 +14,9 @@ if (process.env.NODE_ENV === 'production') {
 const config = {
   entryPoints: [
     './js/app.js',
-    './js/auth.js',
+    './js/authorization.js',
     './js/datatable.js',
+    './js/product_detail.js',
     // Другие файлы JS, если необходимо
   ],
   outdir: '../public/js', // Указываем папку для вывода всех JS файлов

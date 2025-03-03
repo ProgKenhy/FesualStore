@@ -1,0 +1,16 @@
+.information {
+    display: flex;
+    background: #FF6629;
+    min-height: 300px;
+    width: 100%;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.information div {
+    font-weight: 545;
+    font-size: 25px;
+    font-family: "Segoe UI", Arial, sans-serif;
+}

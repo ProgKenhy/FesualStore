@@ -1,0 +1,86 @@
+.html {
+    position: relative;
+    min-height: 100%;
+}
+
+.body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.section {
+    flex: 1;
+}
+
+.full-size {
+    width: 100%;
+    height: 100%;
+    margin: 0 0 0 0 !important;
+}
+
+/*.my-4 {*/
+/*    font-size: 24px;*/
+/*    font-weight: bold;*/
+/*    color: #343a40;*/
+/*}*/
+
+/*.card:hover {*/
+/*    transform: translateY(-10px);*/
+/*}*/
+
+/*.helpful-links {*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    font-size: 16px;*/
+/*    border-bottom: 1.7px solid rgba(138, 138, 138, 0.397);*/
+/*    padding: 10px 30px 10px 30px;*/
+/*    font-family: "Segoe UI", Arial, sans-serif;*/
+/*}*/
+
+/*.helpful-links a {*/
+/*    color: #dd6d04;*/
+/*    text-decoration: none;*/
+/*}*/
+
+
+.new-item-order {
+    display: flex;
+    margin: 10px;
+}
+
+.new-item-order a {
+    background: #ff6629;
+    padding: 10px 30px;
+    font-size: 22px;
+    outline: 1px solid #ff6629;
+    outline-offset: -4px;
+    text-decoration: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.new-item-order a:hover {
+    transition: .3s all ease;
+    outline-color: rgb(255, 255, 255);
+    background: #FF8554;
+}
+
+/*.reviews {*/
+/*    display: flex;*/
+/*    min-height: 400px;*/
+/*    background: #F2EDEA;*/
+/*    width: 100%;*/
+/*    position: relative;*/
+/*    justify-content: center;*/
+/*    flex-wrap: wrap;*/
+/*}*/
+
+/*.reviews div {*/
+/*    font-weight: 545;*/
+/*    font-size: 30px;*/
+/*    font-family: "Segoe UI", Arial, sans-serif;*/
+/*    margin-top: 60px;*/
+/*}*/
+

@@ -4,6 +4,41 @@
 {% block meta %}
     {{ block.super }}
     <meta name="description" content="{{ product.description }}"/>
+    <!-- Добавление Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Стили для шрифтов -->
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+        }
+        h1, h2, h3, h4, h5, h6, .btn {
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1 {
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        h3.text-primary {
+            font-weight: 600;
+        }
+        .product-description {
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        .list-group-item {
+            font-size: 0.95rem;
+        }
+        .alert-heading {
+            font-weight: 600;
+        }
+        .btn {
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -50,32 +85,34 @@
             <!-- Информация о товаре -->
             <div class="col-md-6">
                 <h1 class="mb-3">{{ product.name }}</h1>
-                <h3 class="text-primary mb-4">{{ product.price|intcomma }} руб.</h3>
+                <h3 class="text-primary mb-4">{{ product.price|intcomma }} <span class="currency-symbol">₽</span></h3>
 
                 <div class="mb-4">
                     <h5>Описание:</h5>
-                    <p>{{ product.description }}</p>
+                    <p class="product-description">{{ product.description }}</p>
                 </div>
 
                 <div class="mb-4">
                     <h5>Характеристики:</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Размер: {{ product.size }}</li>
+                        <li class="list-group-item"><i class="fas fa-ruler me-2 text-secondary"></i>Размер: {{ product.size }}</li>
                         {% if product.gender %}
-                            <li class="list-group-item">Пол:
-                                {% if product.gender == 'M' %}Мужской
-                                {% elif product.gender == 'F' %}Женский
+                            <li class="list-group-item">
+                                {% if product.gender == 'M' %}
+                                    <i class="fas fa-mars me-2 text-secondary"></i>Пол: Мужской
+                                {% elif product.gender == 'F' %}
+                                    <i class="fas fa-venus me-2 text-secondary"></i>Пол: Женский
                                 {% endif %}
                             </li>
                         {% endif %}
                         {% if product.category %}
-                            <li class="list-group-item">Категория: {{ product.category.name }}</li>
+                            <li class="list-group-item"><i class="fas fa-tag me-2 text-secondary"></i>Категория: {{ product.category.name }}</li>
                         {% endif %}
                     </ul>
                 </div>
 
                 <div class="alert alert-info" role="alert">
-                    <h5 class="alert-heading">Как заказать:</h5>
+                    <h5 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Как заказать:</h5>
                     <p>Чтобы приобрести этот товар, скопируйте название и отправьте его в наш Telegram.</p>
                     <hr>
                     <div class="input-group mb-3">
@@ -83,22 +120,22 @@
                                value="{{ product.name }} - {{ request.build_absolute_uri }}" readonly>
                         <button class="btn btn-outline-primary" type="button" id="copyButton"
                                 onclick="copyProductInfo()">
-                            <i class="fa fa-copy"></i> Копировать
+                            <i class="fas fa-copy"></i> Копировать
                         </button>
                     </div>
                     <p class="mb-0">
                         <a href="https://t.me/fesual_store" class="btn btn-primary w-100" target="_blank">
-                            <i class="fa fa-telegram"></i> Перейти в Telegram
+                            <i class="fab fa-telegram-plane"></i> Перейти в Telegram
                         </a>
                     </p>
                 </div>
 
                 <div class="d-grid gap-2 mt-4">
                     <a href="{% url 'products:basket_add' product.id %}" class="btn btn-success btn-lg">
-                        <i class="fa fa-shopping-basket"></i> Добавить в корзину
+                        <i class="fas fa-shopping-basket"></i> Добавить в корзину
                     </a>
                     <a href="{% url 'catalog:index' %}" class="btn btn-outline-secondary">
-                        <i class="fa fa-arrow-left"></i> Вернуться в каталог
+                        <i class="fas fa-arrow-left"></i> Вернуться в каталог
                     </a>
                 </div>
             </div>

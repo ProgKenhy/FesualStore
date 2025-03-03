@@ -1,0 +1,18 @@
+.product-name {
+    color: #1A01CC;
+    font-family: "MV Boli", sans-serif;
+    font-weight: bold;
+}
+
+.card {
+    transition: transform 0.3s;
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title a {
+    text-decoration: none;
+    font-weight: bold;
+}

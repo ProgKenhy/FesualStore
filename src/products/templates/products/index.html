@@ -9,6 +9,11 @@
           content="Fesual Store - идеальный интернет-магазин для шоппинга. Здесь в одном удобном каталоге представлено множество брендов одежды, обуви, аксессуаров, спортивных товаров."/>
 {% endblock %}
 
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/products/index.css' %}"/>
+{% endblock %}
+
 {% block content %}
     <section>
         <div class="container-fluid py-5 m-w-select">
@@ -17,17 +22,17 @@
             </div>
             <div class="row justify-content-center py-3">
                 <div class="col-lg-4 col-md-6 px-0 position-relative">
-                    <span class="image-label">Мужчинам</span>
+                    <span class="image-m-w-label">Мужчинам</span>
                     <a href="{% url 'catalog:index' %}?gender=M">
-                        <div class="image-wrapper">
+                        <div class="image-m-w-wrapper">
                             <img class="img-fluid" src="{% static 'img/home/men.jpg' %}" alt="Men">
                         </div>
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 px-0 position-relative">
-                    <span class="image-label">Женщинам</span>
+                    <span class="image-m-w-label">Женщинам</span>
                     <a href="{% url 'catalog:index' %}?gender=F">
-                        <div class="image-wrapper">
+                        <div class="image-m-w-wrapper">
                             <img class="img-fluid" src="{% static 'img/home/women.jpg' %}" alt="Women">
                         </div>
                     </a>

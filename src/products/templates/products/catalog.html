@@ -6,6 +6,11 @@
           content="Купить можно всего в два клика. На выбор товары различных категорий: от масс-маркета до премиум-брендов. Коллекции обновляются постоянно, при этом многие новинки продаются со скидкой. Подлинность товара гарантирована."/>
 {% endblock %}
 
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/products/catalog.css' %}"/>
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -116,7 +121,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title">
+                                    <h5 class="card-title product-name">
                                         <a href="{% url 'products:product_detail' product.id %}">{{ product.name }}</a>
                                     </h5>
                                     <h5>{{ product.price|intcomma }} руб.</h5>

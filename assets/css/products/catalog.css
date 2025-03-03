@@ -1,0 +1,20 @@
+.list-group-item {
+    border: none;
+    border-left: 4px solid #28a745;
+    border-radius: 0;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    border-color: #218838;
+}
+
+.pagination .page-link {
+    color: #28a745;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #28a745;
+    border-color: #28a745;
+}

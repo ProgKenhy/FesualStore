@@ -1,0 +1,34 @@
+.text-news {
+    color: #155724;
+    font-family: "Lucida Sans Unicode", serif;
+    font-weight: 550;
+}
+
+.m-w-select {
+    background: #F2EDEA;
+}
+
+.image-m-w-wrapper {
+    position: relative;
+    text-align: center;
+    height: 400px; /* Установите желаемую высоту */
+}
+
+.image-m-w-wrapper img {
+    width: 100%;
+    object-fit: cover; /* Заполнение контейнера изображением, сохраняя его пропорции */
+    height: 400px; /* Установите желаемую высоту */
+}
+
+.image-m-w-label {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.51);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 1.5em;
+    padding: 10px 0;
+    text-align: center;
+    z-index: 10;
+    pointer-events: none;
+}
