@@ -77,6 +77,6 @@ class Basket(models.Model):
     def sum(self):
         return self.product.price * self.quantity
 
-    def first_image(self):
-        first_image = self.product.images.first()
-        return first_image.image.url if first_image else None
+    def first_img(self):
+        first_img = self.product.img.first()
+        return first_img.image.url if first_img else None

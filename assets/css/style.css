@@ -143,6 +143,11 @@
     color: black;
 }
 
+.main-menu-nav-main button {
+    text-decoration: none;
+    color: black;
+}
+
 .main-menu-nav-main:hover a {
     color: white;
     transition: 0.5s;

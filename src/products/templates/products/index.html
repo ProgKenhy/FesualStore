@@ -47,56 +47,57 @@
             <div class="row g-3">
                 {% if new_items %}
                     {% for product in new_items %}
-                        <div class="col-lg-3 col-md-4 col-sm-6">
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
                             <div class="card h-100">
                                 <div id="carouselExampleIndicators-{{ product.id }}" class="carousel slide"
-                                     data-bs-ride="carousel" data-bs-interval="false">
+                                     data-bs-ride="false" data-bs-interval="false">
                                     <div class="carousel-indicators">
-                                        {% for item in product.images.all %}
+                                        {% for item in product.img.all %}
                                             <button type="button"
                                                     data-bs-target="#carouselExampleIndicators-{{ product.id }}"
                                                     data-bs-slide-to="{{ forloop.counter0 }}"
-                                                    class="{% if forloop.first %}active{% endif %}"
-                                                    aria-current="{% if forloop.first %}true{% endif %}"
-                                                    aria-label="Slide {{ forloop.counter }}"></button>
+                                                    {% if forloop.first %}class="active" aria-current="true"{% endif %}
+                                                    aria-label="Slide {{ forloop.counter }}">
+                                            </button>
                                         {% endfor %}
                                     </div>
                                     <div class="carousel-inner">
                                         {% for item in product.img.all %}
                                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                                <img src="{{ item.image.url }}" class="d-block w-100" alt="Slide">
+                                                <img class="d-block img-fluid product-image" src="{{ item.image.url }}"
+                                                     alt="Slide" data-images="
+                                                     {% for img in product.img.all %}{{ img.image.url }}
+                                                     {% if not forloop.last %},{% endif %}
+                                                     {% endfor %}">
                                             </div>
                                         {% endfor %}
                                     </div>
                                     {% if product.img.count > 1 %}
-                                        <button class="carousel-control-prev"
-                                                type="button"
-                                                data-bs-target="#carouselExampleIndicators-{{ product.id }}"
-                                                data-bs-slide="prev">
+                                        <a class="carousel-control-prev"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
+                                           role="button" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next"
-                                                type="button"
-                                                data-bs-target="#carouselExampleIndicators-{{ product.id }}"
-                                                data-bs-slide="next">
+                                        </a>
+                                        <a class="carousel-control-next"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
+                                           role="button" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
-                                        </button>
+                                        </a>
                                     {% endif %}
                                 </div>
-                                <div class="card-body text-center">
-                                    <h4 class="card-title">
-                                        <a href="#">{{ product.name }}</a>
-                                    </h4>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <a href="{% url 'products:product_detail' product.id %}">{{ product.name }}</a>
+                                    </h5>
                                     <h5>{{ product.price|intcomma }} руб.</h5>
-                                    <p class="card-text">{{ product.description }}</p>
                                     <p class="card-text">Размер: {{ product.size }}</p>
                                 </div>
                                 <div class="card-footer text-center">
                                     <a class="btn btn-outline-success"
                                        href="{% url 'products:basket_add' product.id %}">
-                                        <i class="fas fa-shopping-basket"></i> Добавить в корзину
+                                        <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>
                                     </a>
                                 </div>
                             </div>
@@ -106,9 +107,35 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal with Carousel -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="modalCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner" id="carouselInner">
+                            <!-- Здесь будут динамически добавляться слайды с изображениями -->
+                        </div>
+                        <a class="carousel-control-prev" href="#modalCarousel" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#modalCarousel" role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}
     {{ block.super }}
-    <script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 {% endblock %}

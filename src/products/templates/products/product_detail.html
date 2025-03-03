@@ -1,0 +1,112 @@
+{% extends 'products/base.html' %}
+{% load static humanize %}
+
+{% block meta %}
+    {{ block.super }}
+    <meta name="description" content="{{ product.description }}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="container my-5">
+        <div class="row">
+            <!-- Галерея изображений -->
+            <div class="col-md-6">
+                <div id="productCarousel" class="carousel slide" data-bs-ride="false" data-bs-interval="false">
+                    <div class="carousel-indicators">
+                        {% for item in product.img.all %}
+                            <button type="button"
+                                    data-bs-target="#productCarousel"
+                                    data-bs-slide-to="{{ forloop.counter0 }}"
+                                    {% if forloop.first %}class="active" aria-current="true"{% endif %}
+                                    aria-label="Slide {{ forloop.counter }}">
+                            </button>
+                        {% endfor %}
+                    </div>
+                    <div class="carousel-inner">
+                        {% for item in product.img.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img class="d-block w-100 product-detail-image" src="{{ item.image.url }}"
+                                     alt="{{ product.name }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% if product.img.count > 1 %}
+                        <a class="carousel-control-prev"
+                           href="#productCarousel"
+                           role="button" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next"
+                           href="#productCarousel"
+                           role="button" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Информация о товаре -->
+            <div class="col-md-6">
+                <h1 class="mb-3">{{ product.name }}</h1>
+                <h3 class="text-primary mb-4">{{ product.price|intcomma }} руб.</h3>
+
+                <div class="mb-4">
+                    <h5>Описание:</h5>
+                    <p>{{ product.description }}</p>
+                </div>
+
+                <div class="mb-4">
+                    <h5>Характеристики:</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Размер: {{ product.size }}</li>
+                        {% if product.gender %}
+                            <li class="list-group-item">Пол:
+                                {% if product.gender == 'M' %}Мужской
+                                {% elif product.gender == 'F' %}Женский
+                                {% endif %}
+                            </li>
+                        {% endif %}
+                        {% if product.category %}
+                            <li class="list-group-item">Категория: {{ product.category.name }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="alert alert-info" role="alert">
+                    <h5 class="alert-heading">Как заказать:</h5>
+                    <p>Чтобы приобрести этот товар, скопируйте название и отправьте его в наш Telegram.</p>
+                    <hr>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="productInfoField"
+                               value="{{ product.name }} - {{ request.build_absolute_uri }}" readonly>
+                        <button class="btn btn-outline-primary" type="button" id="copyButton"
+                                onclick="copyProductInfo()">
+                            <i class="fa fa-copy"></i> Копировать
+                        </button>
+                    </div>
+                    <p class="mb-0">
+                        <a href="https://t.me/fesual_store" class="btn btn-primary w-100" target="_blank">
+                            <i class="fa fa-telegram"></i> Перейти в Telegram
+                        </a>
+                    </p>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <a href="{% url 'products:basket_add' product.id %}" class="btn btn-success btn-lg">
+                        <i class="fa fa-shopping-basket"></i> Добавить в корзину
+                    </a>
+                    <a href="{% url 'catalog:index' %}" class="btn btn-outline-secondary">
+                        <i class="fa fa-arrow-left"></i> Вернуться в каталог
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/product_detail.js' %}"></script>
+{% endblock %}
