@@ -1,6 +1,39 @@
 {% extends 'products/base.html' %}
 {% load static %}
 
+
+{% block toasts %}
+    {% if messages %}
+        <div class="toast-container position-fixed top-15 start-50 translate-middle-x p-3" style="z-index: 1100;">
+            {% for message in messages %}
+                <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                    <div class="toast-header {% if message.tags %}bg-{{ message.tags }} text-white{% endif %}">
+                        <i class="fas
+                {% if message.tags == 'success' %}fa-check-circle
+                {% elif message.tags == 'error' or message.tags == 'danger' %}fa-exclamation-circle
+                {% elif message.tags == 'warning' %}fa-exclamation-triangle
+                {% elif message.tags == 'info' %}fa-info-circle
+                {% else %}fa-bell{% endif %} me-2"></i>
+                        <strong class="me-auto">
+                            {% if message.tags == 'success' %}Успешно
+                            {% elif message.tags == 'error' or message.tags == 'danger' %}Ошибка
+                            {% elif message.tags == 'warning' %}Предупреждение
+                            {% elif message.tags == 'info' %}Информация
+                            {% else %}Уведомление{% endif %}
+                        </strong>
+                        <small>сейчас</small>
+                        <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        {{ message }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">

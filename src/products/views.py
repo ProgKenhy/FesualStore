@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, get_object_or_404
 from django.views.generic.base import TemplateView
 from django.views.generic.list import ListView
 from products.filters import ProductFilter
-
+from django.views.generic.detail import DetailView
+from django.contrib import messages
 
 from common.views import CommonMixin
 from products.models import Basket, Product
@@ -42,28 +43,24 @@ class CatalogListView(CommonMixin, ListView):
 
 @login_required
 def basket_add(request, product_id):
-    product = Product.objects.get(id=product_id)
+    product = get_object_or_404(Product, id=product_id)
     baskets = Basket.objects.filter(user=request.user, product=product)
 
     if not baskets.exists():
         Basket.objects.create(user=request.user, product=product, quantity=1)
+        messages.success(request, 'Товар успешно добавлен в корзину!')
     else:
-        basket = baskets.first()
-        basket.quantity += 1
-        basket.save()
+        messages.warning(request, 'Товар уже находится в вашей корзине.')
 
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 @login_required
 def basket_remove(request, basket_id):
-    basket = Basket.objects.get(id=basket_id)
+    basket = get_object_or_404(Basket, id=basket_id)
     basket.delete()
+    messages.success(request, 'Товар успешно удален из корзины.')
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-
-from django.views.generic.detail import DetailView
-from .models import Product
 
 
 class ProductDetailView(DetailView):

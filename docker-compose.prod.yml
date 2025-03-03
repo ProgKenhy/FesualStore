@@ -1,0 +1,173 @@
+x-app: &default-app
+  build:
+    context: "."
+    target: "app"
+    args:
+      - "UID=${UID:-1000}"
+      - "GID=${GID:-1000}"
+      - "DEBUG=${DEBUG:-false}"
+  depends_on:
+    postgres:
+      condition: "service_healthy"
+    redis:
+      condition: "service_healthy"
+  env_file:
+    - ".env"
+  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+  stop_grace_period: "3s"
+  tty: true
+  volumes:
+    - "${DOCKER_WEB_VOLUME:-./public_collected:/app/public_collected}"
+    - "/var/certbot/conf:/etc/letsencrypt/:ro"
+    - "./media:/app/media"
+
+
+x-assets: &default-assets
+  build:
+    context: "."
+    target: "assets"
+    args:
+      - "UID=${UID:-1000}"
+      - "GID=${GID:-1000}"
+      - "NODE_ENV=${NODE_ENV:-production}"
+  env_file:
+    - ".env"
+  restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+  stop_grace_period: "0"
+  tty: true
+  volumes:
+    - ".:/app"
+
+services:
+  postgres:
+    image: "postgres:16.3-bookworm"
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCKER_POSTGRES_CPUS:-0}"
+          memory: "${DOCKER_POSTGRES_MEMORY:-0}"
+    environment:
+      POSTGRES_USER: "${POSTGRES_USER}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
+      POSTGRES_DB: "${POSTGRES_DB}"
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "${POSTGRES_DB}" ]
+      interval: 10s
+      retries: 5
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    stop_grace_period: "3s"
+
+
+  redis:
+    image: "redis:7.2.5-bookworm"
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCKER_REDIS_CPUS:-0}"
+          memory: "${DOCKER_REDIS_MEMORY:-0}"
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      retries: 5
+    stop_grace_period: "3s"
+    volumes:
+      - "redis:/data"
+
+  web:
+    <<: *default-app
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCKER_WEB_CPUS:-0}"
+          memory: "${DOCKER_WEB_MEMORY:-0}"
+    healthcheck:
+      test: "${DOCKER_WEB_HEALTHCHECK_TEST:-curl localhost:8000}"
+      interval: "60s"
+      timeout: "3s"
+      start_period: "5s"
+      retries: 3
+    ports:
+      - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
+    expose:
+      - "8000"
+
+  daphne:
+    <<: *default-app
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCKER_WEB_CPUS:-0}"
+          memory: "${DOCKER_WEB_MEMORY:-0}"
+    healthcheck:
+      test: "${DOCKER_WEB_HEALTHCHECK_TEST:-curl localhost:8001}"
+      interval: "60s"
+      timeout: "3s"
+      start_period: "5s"
+      retries: 3
+    command: daphne -b 0.0.0.0 -p 8001 config.asgi:application
+    ports:
+      - "8001:8001"
+    expose:
+      - "8001"
+
+  worker:
+    <<: *default-app
+    command: celery -A config worker -l "${CELERY_LOG_LEVEL:-info}"
+    entrypoint: [ ]
+    deploy:
+      resources:
+        limits:
+          cpus: "${DOCKER_WORKER_CPUS:-0}"
+          memory: "${DOCKER_WORKER_MEMORY:-0}"
+
+  js:
+    <<: *default-assets
+    command: "../run yarn:build:js"
+
+  css:
+    <<: *default-assets
+    command: "../run yarn:build:css"
+
+  img:
+    <<: *default-assets
+    command: "../run yarn:build:img"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/prod/:/etc/nginx/conf.d:ro
+      - ./public_collected:/app/public_collected
+      - ./media:/app/media
+      - /var/certbot/conf:/etc/letsencrypt
+      - /var/certbot/www:/var/www/certbot
+    depends_on:
+      - web
+      - daphne
+    restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
+
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - /var/certbot/conf:/etc/letsencrypt/:rw
+      - /var/certbot/www/:/var/www/certbot/:rw
+    depends_on:
+      - nginx
+    environment:
+      CERTBOT_PATH: /etc/letsencrypt/live/fesualstore.ru
+    # For automatic renewal, add a command like:
+    command: certonly --webroot --webroot-path=/var/www/certbot/ --email admin@fesualstore.ru --agree-tos --no-eff-email -d fesualstore.ru -d www.fesualstore.ru
+
+
+volumes:
+  postgres: { }
+  redis: { }
+
+#networks:
+#  store_default:
+#    driver: bridge
