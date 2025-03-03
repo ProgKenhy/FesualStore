@@ -62,13 +62,13 @@
                                         {% endfor %}
                                     </div>
                                     <div class="carousel-inner">
-                                        {% for item in product.images.all %}
+                                        {% for item in product.img.all %}
                                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                                 <img src="{{ item.image.url }}" class="d-block w-100" alt="Slide">
                                             </div>
                                         {% endfor %}
                                     </div>
-                                    {% if product.images.count > 1 %}
+                                    {% if product.img.count > 1 %}
                                         <button class="carousel-control-prev"
                                                 type="button"
                                                 data-bs-target="#carouselExampleIndicators-{{ product.id }}"

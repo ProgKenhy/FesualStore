@@ -170,6 +170,10 @@ USE_I18N = True
 # USE_L10N = True
 USE_TZ = True
 
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "..", "media")
+MEDIA_URL = "/media/"
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 STATIC_URL = "/static/"
@@ -179,10 +183,14 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": MEDIA_ROOT,
+        },
+    },
 }
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "..", "media")
-MEDIA_URL = "/media/"
 
 # Django Debug Toolbar
 # https://django-debug-toolbar.readthedocs.io/

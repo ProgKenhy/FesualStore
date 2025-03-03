@@ -15,7 +15,8 @@
                     <a href="{% url 'catalog:index' %}?{% if request.GET %}{{ request.GET.urlencode }}{% endif %}"
                        class="list-group-item">Все категории</a>
                     {% for category in categories %}
-                        <a href="{% url 'products:category' category.id %}?{% if request.GET %}{{ request.GET.urlencode }}{% endif %}"
+                        <a href="{% url 'products:category' category.id %}?
+                                {% if request.GET %}{{ request.GET.urlencode }}{% endif %}"
                            class="list-group-item">{{ category.name }}</a>
                     {% endfor %}
                 </div>
@@ -27,43 +28,47 @@
                 {% else %}
                     <form method="get" action="{% url 'catalog:index' %}" class="mb-4">
                 {% endif %}
-                    <div class="row mt-3">
-                        <div class="col-md-3">
-                            <label for="gender">Пол:</label>
-                            <select id="gender" name="gender" class="form-control">
-                                <option value="">Не выбрано</option>
-                                <option value="M" {% if request.GET.gender == "M" %}selected{% endif %}>Мужская</option>
-                                <option value="F" {% if request.GET.gender == "F" %}selected{% endif %}>Женская</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="size">Размер:</label>
-                            <select id="size" name="size" class="form-control">
-                                <option value="">Не выбрано</option>
-                                <option value="XXS" {% if request.GET.size == "XXS" %}selected{% endif %}>XXS (38-40)</option>
-                                <option value="XS" {% if request.GET.size == "XS" %}selected{% endif %}>XS (40-42)</option>
-                                <option value="S" {% if request.GET.size == "S" %}selected{% endif %}>S (44-46)</option>
-                                <option value="M" {% if request.GET.size == "M" %}selected{% endif %}>M (46-48)</option>
-                                <option value="L" {% if request.GET.size == "L" %}selected{% endif %}>L (48-50)</option>
-                                <option value="XL" {% if request.GET.size == "XL" %}selected{% endif %}>XL (52-54)</option>
-                                <option value="XXL" {% if request.GET.size == "XXL" %}selected{% endif %}>XXL (52-54)</option>
-                                <option value="XXXL" {% if request.GET.size == "XXXL" %}selected{% endif %}>XXXL (54-56)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label for="price__gt">Цена от:</label>
-                            <input type="number" id="price__gt" name="price__gt" class="form-control"
-                                   value="{{ request.GET.price__gt }}">
-                        </div>
-                        <div class="col-md-3">
-                            <label for="price__lt">Цена до:</label>
-                            <input type="number" id="price__lt" name="price__lt" class="form-control"
-                                   value="{{ request.GET.price__lt }}">
-                        </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label for="gender">Пол:</label>
+                        <select id="gender" name="gender" class="form-control">
+                            <option value="">Не выбрано</option>
+                            <option value="M" {% if request.GET.gender == "M" %}selected{% endif %}>Мужская</option>
+                            <option value="F" {% if request.GET.gender == "F" %}selected{% endif %}>Женская</option>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mt-2">Фильтровать</button>
-                    <a href="{% if current_category_id %}{% url 'catalog:category' current_category_id %}{% else %}{% url 'catalog:index' %}{% endif %}"
-                       class="btn btn-secondary ms-2 mt-2">Сбросить фильтры</a>
+                    <div class="col-md-3">
+                        <label for="size">Размер:</label>
+                        <select id="size" name="size" class="form-control">
+                            <option value="">Не выбрано</option>
+                            <option value="XXS" {% if request.GET.size == "XXS" %}selected{% endif %}>XXS (38-40)
+                            </option>
+                            <option value="XS" {% if request.GET.size == "XS" %}selected{% endif %}>XS (40-42)</option>
+                            <option value="S" {% if request.GET.size == "S" %}selected{% endif %}>S (44-46)</option>
+                            <option value="M" {% if request.GET.size == "M" %}selected{% endif %}>M (46-48)</option>
+                            <option value="L" {% if request.GET.size == "L" %}selected{% endif %}>L (48-50)</option>
+                            <option value="XL" {% if request.GET.size == "XL" %}selected{% endif %}>XL (52-54)</option>
+                            <option value="XXL" {% if request.GET.size == "XXL" %}selected{% endif %}>XXL (52-54)
+                            </option>
+                            <option value="XXXL" {% if request.GET.size == "XXXL" %}selected{% endif %}>XXXL (54-56)
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="price__gt">Цена от:</label>
+                        <input type="number" id="price__gt" name="price__gt" class="form-control"
+                               value="{{ request.GET.price__gt }}">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="price__lt">Цена до:</label>
+                        <input type="number" id="price__lt" name="price__lt" class="form-control"
+                               value="{{ request.GET.price__lt }}">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Фильтровать</button>
+                <a href="
+                        {% if current_category_id %}{% url 'catalog:category' current_category_id %}{% else %}{% url 'catalog:index' %}{% endif %}"
+                   class="btn btn-secondary ms-2 mt-2">Сбросить фильтры</a>
                 </form>
 
                 <div class="row">
@@ -75,25 +80,30 @@
                                     <ol class="carousel-indicators">
                                         {% for item in product.images.all %}
                                             <li data-bs-target="#carouselExampleIndicators-{{ product.id }}"
-                                                data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                                                data-bs-slide-to="{{ forloop.counter0 }}"
+                                                {% if forloop.first %}class="active"{% endif %}></li>
                                         {% endfor %}
                                     </ol>
                                     <div class="carousel-inner">
-                                        {% for item in product.images.all %}
+                                        {% for item in product.img.all %}
                                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                                 <img class="d-block img-fluid product-image" src="{{ item.image.url }}"
                                                      alt="Slide" data-images="
-                                                     {% for img in product.images.all %}{{ img.image.url }}{% if not forloop.last %},{% endif %}{% endfor %}">
+                                                     {% for img in product.img.all %}{{ img.image.url }}
+                                                     {% if not forloop.last %},{% endif %}
+                                                     {% endfor %}">
                                             </div>
                                         {% endfor %}
                                     </div>
-                                    {% if product.images.count > 1 %}
-                                        <a class="carousel-control-prev" href="#carouselExampleIndicators-{{ product.id }}"
+                                    {% if product.img.count > 1 %}
+                                        <a class="carousel-control-prev"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
                                            role="button" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
                                         </a>
-                                        <a class="carousel-control-next" href="#carouselExampleIndicators-{{ product.id }}"
+                                        <a class="carousel-control-next"
+                                           href="#carouselExampleIndicators-{{ product.id }}"
                                            role="button" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
@@ -107,7 +117,8 @@
                                     <p class="card-text">Размер: {{ product.size }}</p>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <a class="btn btn-outline-success" href="{% url 'products:basket_add' product.id %}">
+                                    <a class="btn btn-outline-success"
+                                       href="{% url 'products:basket_add' product.id %}">
                                         <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>
                                     </a>
                                 </div>
@@ -121,21 +132,24 @@
                         <ul class="pagination justify-content-center">
                             <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
                                 <a class="page-link"
-                                   href="{% if page_obj.has_previous %}{% url 'products:paginator' page_obj.previous_page_number %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}"
+                                   href="
+                                           {% if page_obj.has_previous %}{% url 'products:paginator' page_obj.previous_page_number %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}"
                                    tabindex="-1" aria-disabled="true">
                                     Предыдущая
                                 </a>
                             </li>
                             {% for page in paginator.page_range %}
                                 <li class="page-item {% if page == page_obj.number %}active{% endif %}">
-                                    <a class="page-link" href="{% url 'products:paginator' page %}?{% if request.GET %}{{ request.GET.urlencode }}{% endif %}">
+                                    <a class="page-link" href="{% url 'products:paginator' page %}?
+                                            {% if request.GET %}{{ request.GET.urlencode }}{% endif %}">
                                         {{ page }}
                                     </a>
                                 </li>
                             {% endfor %}
                             <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
                                 <a class="page-link"
-                                   href="{% if page_obj.has_next %}{% url 'products:paginator' page_obj.next_page_number %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}">
+                                   href="
+                                           {% if page_obj.has_next %}{% url 'products:paginator' page_obj.next_page_number %}{% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}">
                                     Следующая
                                 </a>
                             </li>
