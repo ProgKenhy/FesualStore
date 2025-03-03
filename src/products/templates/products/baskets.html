@@ -20,10 +20,10 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item bg-light">
                     <div class="row text-center">
-                        <div class="col-lg-4">
-                            <input name="basketID" type="number" class="form-control" value="{{ basket.quantity }}"
-                                   min="0">
-                        </div>
+{#                        <div class="col-lg-4">#}
+{#                            <input name="basketID" type="number" class="form-control" value="{{ basket.quantity }}"#}
+{#                                   min="0">#}
+{#                        </div>#}
                         <div class="col-lg-4">{{ basket.sum|intcomma }} руб.</div>
                         <div class="col-lg-4">
                             <a href="{% url 'products:basket_remove' basket.id %}">
@@ -42,9 +42,9 @@
             <h4 class="float-right">{{ baskets.total_sum|intcomma }} руб.</h4>
         </div>
     </div>
-    <a class="btn btn-success btn-lg float-right mb-3" href="{% url 'orders:order_create' %}">
-        Оформить заказ
-    </a>
+{#    <a class="btn btn-success btn-lg float-right mb-3" href="{% url 'orders:order_create' %}">#}
+{#        Оформить заказ#}
+{#    </a>#}
 {% else %}
     <h4 class="mt-3 mb-3 center">
         Корзина пуста

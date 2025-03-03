@@ -11,15 +11,20 @@ $(document).ready(function () {
 
     // Обработчик для клика на изображение товара
     $('.product-image').on('click', function () {
-        var images = $(this).data('images').split(','); // Получаем список всех изображений
+        var images = $(this).data('images').split(',').map(img => img.trim()); // Получаем список всех изображений и удаляем лишние пробелы
         var carouselInner = $('#carouselInner'); // Обращаемся к контейнеру для слайдов карусели
         carouselInner.empty(); // Очищаем карусель перед вставкой новых слайдов
+
+        // Определение индекса текущего изображения в массиве изображений
+        var currentImage = $(this).attr('src');
+        var currentIndex = images.findIndex(img => img === currentImage);
+        if (currentIndex === -1) currentIndex = 0; // Если изображение не найдено, используем первое
 
         // Проверяем, есть ли изображения
         if (images.length > 0) {
             // Динамически добавляем изображения в карусель
             $.each(images, function (index, image) {
-                var activeClass = index === 0 ? 'active' : ''; // Первый слайд активен
+                var activeClass = index === currentIndex ? 'active' : ''; // Активным будет выбранное изображение
                 carouselInner.append(`
                     <div class="carousel-item ${activeClass}">
                         <img class="d-block img-fluid" src="${image}" alt="Product Image">
@@ -32,8 +37,5 @@ $(document).ready(function () {
         } else {
             alert('Изображения не найдены для этого товара.');
         }
-
-        // Реинициализация карусели (если необходимо)
-        $('#imageModal .carousel').carousel(0); // Перемещаем карусель на первый элемент
     });
 });
