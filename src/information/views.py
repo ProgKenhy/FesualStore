@@ -24,5 +24,6 @@ def faq(request):
 def history(request):
     return render(request, 'information/company-history.html')
 
+
 def public_offer(request):
     return render(request, 'information/public-offer.html')
