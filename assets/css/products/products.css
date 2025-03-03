@@ -1,8 +1,4 @@
-.product-name {
-    color: #1A01CC;
-    font-family: "MV Boli", sans-serif;
-    font-weight: bold;
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap');
 
 .card {
     transition: transform 0.3s;
@@ -10,9 +6,26 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
 }
 
 .card-title a {
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 1.3rem;
+    font-family: 'Playfair Display', serif;
+
+}
+
+.price-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: #2e8b57; /* Более мягкий зеленый цвет */
+    margin-bottom: 4px;
+}
+
+.size-value {
+    font-weight: 500;
+    color: #34495e;
 }

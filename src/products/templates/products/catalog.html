@@ -74,6 +74,8 @@
                 <a href="
 
 
+
+
                         {% if current_category_id %}{% url 'catalog:category' current_category_id %}{% else %}{% url 'catalog:index' %}{% endif %}"
                    class="btn btn-secondary ms-2 mt-2">Сбросить фильтры</a>
                 </form>
@@ -121,17 +123,17 @@
                                     {% endif %}
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title product-name">
+                                    <h5 class="card-title">
                                         <a href="{% url 'products:product_detail' product.id %}">{{ product.name }}</a>
                                     </h5>
-                                    <h5>{{ product.price|intcomma }} руб.</h5>
-                                    <p class="card-text">Размер: {{ product.size }}</p>
+                                    <div class="price-tag">{{ product.price|intcomma }} руб.</div>
+                                    <p class="card-text">Размер: <span class="size-value">{{ product.size }}</span></p>
                                 </div>
                                 <div class="card-footer text-center">
-{#                                    <a class="btn btn-outline-success"#}
-{#                                       href="{% url 'products:basket_add' product.id %}">#}
-{#                                        <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>#}
-{#                                    </a>#}
+                                    {#                                    <a class="btn btn-outline-success"#}
+                                    {#                                       href="{% url 'products:basket_add' product.id %}">#}
+                                    {#                                        <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>#}
+                                    {#                                    </a>#}
                                     <a class="btn btn-outline-success"
                                        href="{% url 'products:product_detail' product.id %}">
                                         <i class="fa fa-info-circle" aria-hidden="true"> Подробнее о товаре</i>
@@ -148,7 +150,9 @@
                         <ul class="pagination justify-content-center">
                             <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
                                 <a class="page-link"
-                                   href="{% if page_obj.has_previous %}{% url 'products:paginator' page_obj.previous_page_number %}
+                                   href="
+
+                                           {% if page_obj.has_previous %}{% url 'products:paginator' page_obj.previous_page_number %}
                                          {% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}"
                                    tabindex="-1" aria-disabled="true">
                                     Предыдущая
@@ -164,7 +168,9 @@
                             {% endfor %}
                             <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
                                 <a class="page-link"
-                                   href="{% if page_obj.has_next %}{% url 'products:paginator' page_obj.next_page_number %}
+                                   href="
+
+                                           {% if page_obj.has_next %}{% url 'products:paginator' page_obj.next_page_number %}
                                          {% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}">
                                     Следующая
                                 </a>

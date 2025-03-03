@@ -25,7 +25,7 @@
                     <span class="image-m-w-label">Мужчинам</span>
                     <a href="{% url 'catalog:index' %}?gender=M">
                         <div class="image-m-w-wrapper">
-                            <img class="img-fluid" src="{% static 'img/home/men.jpg' %}" alt="Men">
+                            <img class="img-fluid" src="{% static 'img/home/men.png' %}" alt="Men">
                         </div>
                     </a>
                 </div>
@@ -33,14 +33,14 @@
                     <span class="image-m-w-label">Женщинам</span>
                     <a href="{% url 'catalog:index' %}?gender=F">
                         <div class="image-m-w-wrapper">
-                            <img class="img-fluid" src="{% static 'img/home/women.jpg' %}" alt="Women">
+                            <img class="img-fluid" src="{% static 'img/home/women.png' %}" alt="Women">
                         </div>
                     </a>
                 </div>
             </div>
             <div class="row justify-content-center">
-                <div class="col-lg-8 px-0">
-                    <img src="{% static 'img/brand.jpg' %}" alt="" class="img-fluid">
+                <div class="col-lg-12 col-md-12 px-0 text-center">
+                    <img src="{% static 'img/brand.jpg' %}" alt="" class="img-fluid mx-auto">
                 </div>
             </div>
         </div>
@@ -96,14 +96,19 @@
                                     <h5 class="card-title">
                                         <a href="{% url 'products:product_detail' product.id %}">{{ product.name }}</a>
                                     </h5>
-                                    <h5>{{ product.price|intcomma }} руб.</h5>
-                                    <p class="card-text">Размер: {{ product.size }}</p>
+                                    <div class="price-tag">{{ product.price|intcomma }} руб.</div>
+                                    <p class="card-text">Размер: <span class="size-value">{{ product.size }}</span></p>
                                 </div>
                                 <div class="card-footer text-center">
+                                    {#                                    <a class="btn btn-outline-success"#}
+                                    {#                                       href="{% url 'products:basket_add' product.id %}">#}
+                                    {#                                        <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>#}
+                                    {#                                    </a>#}
                                     <a class="btn btn-outline-success"
-                                       href="{% url 'products:basket_add' product.id %}">
-                                        <i class="fa fa-shopping-basket" aria-hidden="true"> Добавить в корзину</i>
+                                       href="{% url 'products:product_detail' product.id %}">
+                                        <i class="fa fa-info-circle" aria-hidden="true"> Подробнее о товаре</i>
                                     </a>
+
                                 </div>
                             </div>
                         </div>
