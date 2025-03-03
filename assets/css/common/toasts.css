@@ -1,0 +1,29 @@
+.toast {
+    min-width: 300px;
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    opacity: 0.95;
+    border: none;
+    margin-bottom: 0.75rem;
+}
+
+.toast:hover {
+    opacity: 1;
+}
+
+.bg-success {
+    background-color: #28a745 !important;
+}
+
+.bg-error, .bg-danger {
+    background-color: #dc3545 !important;
+}
+
+.bg-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.bg-info {
+    background-color: #17a2b8 !important;
+}

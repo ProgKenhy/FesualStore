@@ -5,39 +5,39 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-7">
-                <h4 class="mt-3 mb-3">Профиль</h4>
+                <h4 class="mt-3 mb-3 text-center">Профиль</h4>
                 <form action="{% url 'users:profile' user.id %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <div class="row">
-                        <div class="col-lg-6">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-5 col-sm-5">
                             <div class="mb-3">
                                 <label class="small mb-1" for="{{ form.first_name.id_for_label }}">Имя</label>
                                 {{ form.first_name }}
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 col-md-5 col-sm-5">
                             <div class="mb-3">
                                 <label class="small mb-1" for="{{ form.last_name.id_for_label }}">Фамилия</label>
                                 {{ form.last_name }}
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-6">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6 col-md-5 col-sm-5">
                             <div class="mb-3">
                                 <label class="small mb-1" for="{{ form.username.id_for_label }}">Имя пользователя</label>
                                 {{ form.username }}
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6 col-md-5 col-sm-5">
                             <div class="mb-3">
                                 <label class="small mb-1" for="{{ form.email.id_for_label }}">Адрес электронной почты</label>
                                 {{ form.email }}
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12" style="margin-top: 33px;">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 33px;">
                             <input class="btn btn-info w-100" type="submit" value="Сохранить">
                         </div>
                     </div>

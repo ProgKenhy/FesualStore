@@ -22,6 +22,7 @@
     <meta name="msapplication-TileColor" content="#fd80b3">
     <meta name="theme-color" content="#fd80b3">
 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common/toasts.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/common/header.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/common/style.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/common/footer.css' %}"/>
@@ -35,6 +36,36 @@
     {% block css %} {% endblock %}
 
 </head>
+
+{% if messages %}
+    <div class="toast-container position-fixed top-15 start-50 translate-middle-x p-3" style="z-index: 1100;">
+        {% for message in messages %}
+            <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                <div class="toast-header {% if message.tags %}bg-{{ message.tags }} text-white{% endif %}">
+                    <i class="fas
+                {% if message.tags == 'success' %}fa-check-circle
+                {% elif message.tags == 'error' or message.tags == 'danger' %}fa-exclamation-circle
+                {% elif message.tags == 'warning' %}fa-exclamation-triangle
+                {% elif message.tags == 'info' %}fa-info-circle
+                {% else %}fa-bell{% endif %} me-2"></i>
+                    <strong class="me-auto">
+                        {% if message.tags == 'success' %}Успешно
+                        {% elif message.tags == 'error' or message.tags == 'danger' %}Ошибка
+                        {% elif message.tags == 'warning' %}Предупреждение
+                        {% elif message.tags == 'info' %}Информация
+                        {% else %}Уведомление{% endif %}
+                    </strong>
+                    <small>сейчас</small>
+                    <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
 <body class="d-flex flex-column min-vh-100">
 <header>
@@ -102,8 +133,8 @@
                 <h5>Покупателю</h5>
                 <ul class="list-unstyled pt-1">
                     <li><a href="{% url 'information:delivery' %}" class="text-white">Доставка</a></li>
-{#                    <li><a href="{% url 'information:payment' %}" class="text-white">Оплата</a></li>#}
-{#                    <li><a href="{% url 'information:public-offer' %}" class="text-white">Публичная оферта</a></li>#}
+                    {#                    <li><a href="{% url 'information:payment' %}" class="text-white">Оплата</a></li>#}
+                    {#                    <li><a href="{% url 'information:public-offer' %}" class="text-white">Публичная оферта</a></li>#}
                 </ul>
             </div>
             <div class="col-md-3">
@@ -117,7 +148,7 @@
                 <h5>Поддержка</h5>
                 <ul class="list-unstyled pt-1">
                     <li><a href="{% url 'information:contacts' %}" class="text-white">Наши контакты</a></li>
-{#                    <li><a href="{% url 'information:faq' %}" class="text-white">Часто задаваемые вопросы</a></li>#}
+                    {#                    <li><a href="{% url 'information:faq' %}" class="text-white">Часто задаваемые вопросы</a></li>#}
                 </ul>
             </div>
 
@@ -142,7 +173,6 @@
     </div>
 
 
-
 </footer>
 
 
@@ -150,7 +180,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-{#<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>#}
+
+<script src="{% static 'js/toasts.js' %}"></script>
 
 
 
