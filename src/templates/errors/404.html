@@ -1,0 +1,18 @@
+{% extends 'errors/base.html' %}
+
+{% block meta %}
+    <meta name="description" content="Страница не найдена">
+{% endblock %}
+
+{% block content %}
+<div class="container error-page">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4 text-danger">404</h1>
+            <h2>Страница не найдена</h2>
+            <p>К сожалению, запрошенная страница не существует или была удалена.</p>
+            <a href="{% url 'index' %}" class="btn btn-primary mt-3">Вернуться на главную</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

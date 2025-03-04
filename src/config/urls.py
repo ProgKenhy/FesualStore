@@ -12,6 +12,11 @@ static_urlpatterns = [
     re_path(r"^static/(?P<path>.*)$", serve, {"document_root": settings.STATIC_ROOT}),
 ]
 
+handler400 = 'config.views.bad_request'
+handler403 = 'config.views.permission_denied'
+handler404 = 'config.views.page_not_found'
+handler500 = 'config.views.server_error'
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', IndexView.as_view(), name='index'),
@@ -31,4 +36,8 @@ if settings.DEBUG:
 
 if not settings.TESTING:
     urlpatterns += path("__debug__/", include("debug_toolbar.urls")),
+
+
+
+
 

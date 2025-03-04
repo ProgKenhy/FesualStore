@@ -1,0 +1,18 @@
+{% extends 'errors/base.html' %}
+
+{% block meta %}
+    <meta name="description" content="Доступ запрещен">
+{% endblock %}
+
+{% block content %}
+<div class="container error-page">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4 text-danger">403</h1>
+            <h2>Доступ запрещен</h2>
+            <p>У вас недостаточно прав для просмотра этой страницы.</p>
+            <a href="{% url 'index' %}" class="btn btn-primary mt-3">На главную</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+.error-page {
+    margin-top: 50px;
+    padding: 50px 0;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+}
+
+.error-page h1 {
+    font-size: 120px;
+    font-weight: bold;
+}
+
+.error-page h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
