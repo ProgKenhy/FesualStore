@@ -46,9 +46,9 @@ class ProductAdminForm(forms.ModelForm):
 class ProductAdmin(admin.ModelAdmin):
     form = ProductAdminForm
     inlines = [ProductImageInline, ]
-    list_display = ('name', 'price', 'category')
-    fields = ('name', 'description', 'price', 'category', 'size', 'gender', 'images')
-    search_fields = ('name', 'description')
+    list_display = ('name', 'price', 'category', 'reservation')
+    fields = ('name', 'description', 'price', 'reservation', 'category', 'size', 'gender', 'images')
+    search_fields = ('name', 'description', 'reservation')
 
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)

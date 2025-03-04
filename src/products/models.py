@@ -40,6 +40,7 @@ class Product(models.Model):
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     size = models.CharField(max_length=15, choices=SIZE_CHOICES, default='Unknown')
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='U')
+    reservation = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'товар'
