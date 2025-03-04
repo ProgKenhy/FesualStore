@@ -76,6 +76,7 @@
 
 
 
+
                         {% if current_category_id %}{% url 'catalog:category' current_category_id %}{% else %}{% url 'catalog:index' %}{% endif %}"
                    class="btn btn-secondary ms-2 mt-2">Сбросить фильтры</a>
                 </form>
@@ -128,6 +129,9 @@
                                     </h5>
                                     <div class="price-tag">{{ product.price|intcomma }} руб.</div>
                                     <p class="card-text">Размер: <span class="size-value">{{ product.size }}</span></p>
+                                    {% if product.reservation %}
+                                        <p class="card-text text-danger">Товар зарезервирован!</p>
+                                    {% endif %}
                                 </div>
                                 <div class="card-footer text-center">
                                     {#                                    <a class="btn btn-outline-success"#}
@@ -152,6 +156,7 @@
                                 <a class="page-link"
                                    href="
 
+
                                            {% if page_obj.has_previous %}{% url 'products:paginator' page_obj.previous_page_number %}
                                          {% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}"
                                    tabindex="-1" aria-disabled="true">
@@ -169,6 +174,7 @@
                             <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
                                 <a class="page-link"
                                    href="
+
 
                                            {% if page_obj.has_next %}{% url 'products:paginator' page_obj.next_page_number %}
                                          {% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}">
