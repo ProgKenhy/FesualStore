@@ -14,6 +14,7 @@ if (process.env.NODE_ENV === 'production') {
 const config = {
   entryPoints: [
     './js/app.js',
+    './js/toasts.js',
     './js/authorization.js',
     './js/datatable.js',
     './js/product_detail.js',
