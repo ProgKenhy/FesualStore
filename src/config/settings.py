@@ -177,11 +177,14 @@ MEDIA_URL = "/media/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 STATIC_URL = "/static/"
-STATICFILES_DIRS = ["/public", os.path.join(BASE_DIR, "..", "public")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "..", "public")]
 STATIC_ROOT = os.path.join(BASE_DIR, "..", "public_collected")
+
+# Настройки хранилищ
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage" if not DEBUG
+                  else "whitenoise.storage.StaticFilesStorage",
     },
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
@@ -190,6 +193,9 @@ STORAGES = {
         },
     },
 }
+
+# Автоматическое обновление статики в режиме разработки
+WHITENOISE_AUTOREFRESH = DEBUG
 
 
 # Django Debug Toolbar
@@ -278,8 +284,30 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '{levelname} {asctime} {module} {message}',
-            'style': '{',
+            'format': '%(levelname)s [%(asctime)s] [%(name)s:%(lineno)s] %(message)s',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        },
+        'json': {
+            'format': '%(message)s',
+            'class': 'pythonjsonlogger.jsonlogger.JsonFormatter',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+            'format': '''
+                {
+                    "timestamp": "%(asctime)s",
+                    "level": "%(levelname)s",
+                    "name": "%(name)s",
+                    "line": "%(lineno)s",
+                    "message": "%(message)s"
+                }
+            ''',
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
         },
     },
     'handlers': {
@@ -287,27 +315,57 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
+        'json_console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'json',
+        },
+        'null': {
+            'class': 'logging.NullHandler',
+        },
     },
     'root': {
         'handlers': ['console'],
-        'level': 'DEBUG',
+        'level': os.getenv('LOG_LEVEL', 'INFO'),
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_SERVER_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_DB_LOG_LEVEL', 'INFO'),
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_REQUEST_LOG_LEVEL', 'INFO'),
             'propagate': False,
         },
         'channels': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': os.getenv('CHANNELS_LOG_LEVEL', 'INFO'),
             'propagate': False,
         },
-        # Ваш кастомный логгер
         'support': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': os.getenv('SUPPORT_LOG_LEVEL', 'DEBUG'),
             'propagate': False,
         },
     },
 }
+
+# Automatically switch to JSON logging in production for better log aggregation
+if not DEBUG:
+    for logger_name in LOGGING['loggers']:
+        if 'console' in LOGGING['loggers'][logger_name]['handlers']:
+            LOGGING['loggers'][logger_name]['handlers'] = ['json_console']
+
+    if 'console' in LOGGING['root']['handlers']:
+        LOGGING['root']['handlers'] = ['json_console']
