@@ -20,6 +20,8 @@ x-app: &default-app
     - "${DOCKER_WEB_VOLUME:-./public_collected:/app/public_collected}"
     - "/var/certbot/conf:/etc/letsencrypt/:ro"
     - "./media:/app/media"
+  networks:
+    - store_default
 
 x-assets: &default-assets
   build:
@@ -57,6 +59,8 @@ services:
       retries: 5
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
+    networks:
+      - store_default
 
   redis:
     image: "redis:7.2.5-bookworm"
@@ -73,6 +77,8 @@ services:
     stop_grace_period: "3s"
     volumes:
       - "redis:/data"
+    networks:
+      - store_default
 
   web:
     <<: *default-app
@@ -139,7 +145,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/prod/:/etc/nginx/conf.d:ro
+      - ./nginx/dev/:/etc/nginx/conf.d:ro
       - ./public_collected:/app/public_collected
       - ./media:/app/media
       - /var/certbot/conf:/etc/letsencrypt
@@ -148,18 +154,18 @@ services:
       - web
       - daphne
     restart: ${DOCKER_RESTART_POLICY:-unless-stopped}
-#    networks:
-#      - store_default
+    networks:
+      - store_default
 
-  certbot:
-    image: certbot/certbot:latest
-    volumes:
-      - /var/certbot/conf:/etc/letsencrypt/:rw
-      - /var/certbot/www/:/var/www/certbot/:rw
-    depends_on:
-      - nginx
-    environment:
-      CERTBOT_PATH: /etc/letsencrypt/live/fesualstore.ru
+#  certbot:
+#    image: certbot/certbot:latest
+#    volumes:
+#      - /var/certbot/conf:/etc/letsencrypt/:rw
+#      - /var/certbot/www/:/var/www/certbot/:rw
+#    depends_on:
+#      - nginx
+#    environment:
+#      CERTBOT_PATH: /etc/letsencrypt/live/fesualstore.ru
 #    networks:
 #      - store_default
 
@@ -167,6 +173,6 @@ volumes:
   postgres: { }
   redis: { }
 
-#networks:
-#  store_default:
-#    driver: bridge
+networks:
+  store_default:
+    driver: bridge
