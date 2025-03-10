@@ -139,6 +139,10 @@ services:
     <<: *default-assets
     command: "../run yarn:build:img"
 
+  another:
+    <<: *default-assets
+    command: "../run yarn:build:another"
+
   nginx:
     image: nginx:latest
     ports:

@@ -139,12 +139,17 @@ function yarn:build:css {
   # Используем PostCSS для обработки и минимизации
 #  DEBUG=0 postcss css/style.css -o ../public/css/style.css "${args[@]}"
   cp -r css/ ../public/
-  cp -r static/* ../public/
+
 }
 
 function yarn:build:img {
     mkdir -p ../public/img
     cp -r img/ ../public/
+}
+
+function yarn:build:another {
+    cp -r icon/* ../public/
+    cp -r static/* ../public/
 }
 
 function clean {
