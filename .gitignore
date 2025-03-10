@@ -1,7 +1,7 @@
 # Mostly created by https://www.gitignore.io
 
 *.Identifier
-
+.venv
 ### App #######################################################################
 
 public/*
