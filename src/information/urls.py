@@ -10,5 +10,6 @@ urlpatterns = [
     path('team/', views.team, name='team'),
     # path('faq/', views.faq, name='faq'),
     path('company-history/', views.history, name='company-history'),
+    path('english-task/', views.english_task, name='english_task'),
     # path('public-offer/', views.public_offer, name='public-offer'),
 ]

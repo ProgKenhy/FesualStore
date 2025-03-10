@@ -27,3 +27,7 @@ def history(request):
 
 def public_offer(request):
     return render(request, 'information/public-offer.html', {'title': 'Публичная оферта'})
+
+
+def english_task(request):
+    return render(request, 'information/english.html', {'title': 'Задание по английскому'})
