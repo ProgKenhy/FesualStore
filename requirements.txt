@@ -17,6 +17,7 @@ gunicorn==23.0.0
 isort==5.13.2
 phonenumberslite==8.13.38
 psycopg==3.2.3
+pillow==11.1.0
 python-dotenv==1.0.1
 redis==5.2.0
 requests==2.32.3
