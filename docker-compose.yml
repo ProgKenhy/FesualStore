@@ -132,19 +132,19 @@ services:
 
   js:
     <<: *default-assets
-    command: "../run yarn:build:js"
+    command: bash -c "../run yarn:build:js"
 
   css:
     <<: *default-assets
-    command: "../run yarn:build:css"
+    command: bash -c "../run yarn:build:css"
 
   img:
     <<: *default-assets
-    command: "../run yarn:build:img"
+    command: bash -c "../run yarn:build:img"
 
   another:
     <<: *default-assets
-    command: "../run yarn:build:another"
+    command: bash -c "../run yarn:build:another"
 
   nginx:
     image: nginx:1.25-alpine
