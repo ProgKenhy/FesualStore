@@ -88,17 +88,26 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="mb-3">
+                                    <div class="mb-3 position-relative">
                                         <label class="small mb-1" for="{{ form.password1.id_for_label }}">Пароль</label>
                                         {{ form.password1 }}
+                                        <span class="position-absolute top-50 end-0 me-3" style="cursor: pointer;"
+                                              onclick="togglePasswordVisibility('id_password1', 'togglePasswordIcon1')">
+                                    <i class="fa fa-eye" id="togglePasswordIcon1"></i>
+                                </span>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="mb-3">
+                                    <div class="mb-3 position-relative">
                                         <label class="small mb-1" for="{{ form.password2.id_for_label }}">Подтвердите
                                             пароль</label>
                                         {{ form.password2 }}
+                                        <span class="position-absolute top-50 end-0 me-3" style="cursor: pointer;"
+                                              onclick="togglePasswordVisibility('id_password2', 'togglePasswordIcon2')">
+                                            <i class="fa fa-eye" id="togglePasswordIcon2"></i>
+                                        </span>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="mt-3">
