@@ -8,37 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Стили для шрифтов -->
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: #333;
-        }
-        h1, h2, h3, h4, h5, h6, .btn {
-            font-family: 'Montserrat', sans-serif;
-        }
-        h1 {
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        h3.text-primary {
-            font-weight: 600;
-        }
-        .product-description {
-            font-size: 1.05rem;
-            line-height: 1.6;
-        }
-        .list-group-item {
-            font-size: 0.95rem;
-        }
-        .alert-heading {
-            font-weight: 600;
-        }
-        .btn {
-            font-weight: 500;
-            letter-spacing: 0.5px;
-        }
-    </style>
+{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/products/product_detail.css' %}"/>
 {% endblock %}
 
 {% block content %}
