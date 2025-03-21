@@ -7,7 +7,8 @@
     <!-- Добавление Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500&display=swap"
+          rel="stylesheet">
 {% endblock %}
 
 {% block css %}
@@ -59,8 +60,25 @@
             <!-- Информация о товаре -->
             <div class="col-md-6">
                 <h1 class="mb-3">{{ product.name }}</h1>
-                <h3 class="text-primary mb-4">{{ product.price|intcomma }} <span class="currency-symbol">₽</span></h3>
+                <div class="price-block mb-4">
+                    {% if product.discount > 0 %}
+                        <div class="d-flex align-items-center gap-3">
+                            <h3 class="text-danger mb-0">{{ product.discounted_price|floatformat:"0"|intcomma }} ₽</h3>
+                            <span class="badge bg-success fs-6">-{{ product.discount }}%</span>
+                        </div>
+                        <s class="text-muted">{{ product.price|intcomma }} ₽</s>
+                    {% else %}
+                        <h3 class="text-primary mb-0">{{ product.price|intcomma }} ₽</h3>
+                    {% endif %}
 
+                    {% if product.reservation %}
+                        <div class="mt-2">
+            <span class="badge bg-danger py-2 px-3 fs-6">
+                <i class="fas fa-lock me-2"></i>Товар в брони
+            </span>
+                        </div>
+                    {% endif %}
+                </div>
                 <div class="mb-4">
                     <h5>Описание:</h5>
                     <p class="product-description">{{ product.description }}</p>
@@ -69,7 +87,8 @@
                 <div class="mb-4">
                     <h5>Характеристики:</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><i class="fas fa-ruler me-2 text-secondary"></i>Размер: {{ product.size }}</li>
+                        <li class="list-group-item"><i
+                                class="fas fa-ruler me-2 text-secondary"></i>Размер: {{ product.size }}</li>
                         {% if product.gender %}
                             <li class="list-group-item">
                                 {% if product.gender == 'M' %}
@@ -80,8 +99,11 @@
                             </li>
                         {% endif %}
                         {% if product.category %}
-                            <li class="list-group-item"><i class="fas fa-tag me-2 text-secondary"></i>Категория: {{ product.category.name }}</li>
+                            <li class="list-group-item"><i
+                                    class="fas fa-tag me-2 text-secondary"></i>Категория: {{ product.category.name }}
+                            </li>
                         {% endif %}
+
                     </ul>
                 </div>
 
