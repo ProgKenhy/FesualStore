@@ -1,6 +1,7 @@
 from django.db import models
 
 from users.models import User
+from decimal import Decimal
 
 SIZE_CHOICES = [
     ('?', 'Unknown'),
@@ -36,11 +37,16 @@ class Product(models.Model):
     name = models.CharField(max_length=63)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=9, decimal_places=2)
+    discount = models.PositiveIntegerField(default=0)
     quantity = models.PositiveIntegerField(default=0)
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
     size = models.CharField(max_length=15, choices=SIZE_CHOICES, default='Unknown')
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='U')
     reservation = models.BooleanField(default=False)
+
+    @property
+    def discounted_price(self):
+        return self.price * (Decimal('1') - Decimal(self.discount) / Decimal('100'))
 
     class Meta:
         verbose_name = 'товар'

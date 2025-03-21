@@ -79,6 +79,13 @@
 
 
 
+
+
+
+
+
+
+
                         {% if current_category_id %}{% url 'catalog:category' current_category_id %}{% else %}{% url 'catalog:index' %}{% endif %}"
                    class="btn btn-secondary ms-2 mt-2">Сбросить фильтры</a>
                 </form>
@@ -126,14 +133,32 @@
                                     {% endif %}
                                 </div>
                                 <div class="card-body">
-                                    <h5 class="card-title d-flex align-items-center">
-                                        <a href="{% url 'products:product_detail' product.id %}">{{ product.name }}</a>
+                                    <h5 class="card-title d-flex ">
+                                        <a href="{% url 'products:product_detail' product.id %}"
+                                           style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{ product.name }}</a>
+                                    </h5>
+                                    <div class="price-tag">
+                                        {% if product.discount > 0 %}
+                                            <div class="d-block">
+                                                <div class="d-flex align-items-center">
+                                                    <s class="text-muted">{{ product.price|intcomma }} руб.</s>
+                                                    <span class="badge bg-success ms-2">-{{ product.discount }}%</span>
+                                                </div>
+                                                <div class="text-danger fw-bold fs-5">
+                                                    {{ product.discounted_price|floatformat:"0"|intcomma }} руб.
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <div class="text-dark">{{ product.price|intcomma }} руб.</div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="card-text mb-0">Размер: <span
+                                                class="size-value">{{ product.size }}</span></p>
                                         {% if product.reservation %}
                                             <span class="badge bg-danger ms-2">Бронь</span>
                                         {% endif %}
-                                    </h5>
-                                    <div class="price-tag">{{ product.price|intcomma }} руб.</div>
-                                    <p class="card-text">Размер: <span class="size-value">{{ product.size }} </span></p>
+                                    </div>
                                 </div>
                                 <div class="card-footer text-center">
                                     {#                                    <a class="btn btn-outline-success"#}
@@ -161,6 +186,9 @@
 
 
 
+
+
+
                                            {% if page_obj.has_previous %}{% url 'products:paginator' page_obj.previous_page_number %}
                                          {% if request.GET %}?{{ request.GET.urlencode }}{% endif %}{% else %}#{% endif %}"
                                    tabindex="-1" aria-disabled="true">
@@ -178,6 +206,9 @@
                             <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
                                 <a class="page-link"
                                    href="
+
+
+
 
 
 
