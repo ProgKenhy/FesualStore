@@ -26,11 +26,10 @@ help:
 	@echo "  stop         - Stop running containers"
 	@echo "  restart      - Restart containers"
 	@echo "  logs         - View container logs (last 100 lines)"
-	@echo "  logs-api     - View API container logs (last 100 lines)"
+	@echo "  logs-nginx   - View NGINX container logs (last 100 lines)"
 	@echo "  ps           - List running containers"
-	@echo "  login-timescale - Open a bash shell in the timescale container"
-	@echo "  login-api    - Open a bash shell in the API container"
-	@echo "  db-shell     - Open a PostgreSQL shell in the timescale container"
+	@echo "  login-web    - Open a bash shell in the web container"
+	@echo "  login-postgres - Open a bash shell in the postgres container"
 
 env-check:
 	@echo "Using $(COMPOSE_FILE) for NODE_ENV: $(NODE_ENV)"
@@ -61,16 +60,13 @@ logs: env-check
 	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) logs --tail=100 -f $(c)
 
 logs-api: env-check
-	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) logs --tail=100 -f api
+	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) logs --tail=100 -f nginx
 
 ps: env-check
 	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) ps
 
-login-timescale: env-check
-	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec timescale /bin/bash
+login-web: env-check
+	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec web /bin/bash
 
-login-api: env-check
-	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec api /bin/bash
-
-db-shell: env-check
-	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec timescale psql -Upostgres
+login-postgres: env-check
+	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec postgres /bin/bash
