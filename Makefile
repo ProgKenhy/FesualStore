@@ -29,7 +29,9 @@ help:
 	@echo "  logs-nginx   - View NGINX container logs (last 100 lines)"
 	@echo "  ps           - List running containers"
 	@echo "  login-web    - Open a bash shell in the web container"
+	@echo "  login-daphne - Open a bash shell in the daphne container"
 	@echo "  login-postgres - Open a bash shell in the postgres container"
+	@echo "  login-nginx  - Open a bash shell in the nginx container"
 
 env-check:
 	@echo "Using $(COMPOSE_FILE) for NODE_ENV: $(NODE_ENV)"
@@ -68,5 +70,11 @@ ps: env-check
 login-web: env-check
 	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec web /bin/bash
 
+login-daphne: env-check
+	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec daphne /bin/bash
+
 login-postgres: env-check
 	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec postgres /bin/bash
+
+login-nginx: env-check
+	NODE_ENV=$(NODE_ENV) docker-compose -f $(COMPOSE_FILE) exec nginx sh
