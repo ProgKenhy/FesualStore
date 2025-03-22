@@ -21,7 +21,7 @@
     <link rel="mask-icon" href="{% static 'safari-pinned-tab.svg' %}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#fd80b3">
     <meta name="theme-color" content="#fd80b3">
-    {% if request.get_host == 'fesualstore.ru' %}
+    {% if not DEBUG and request.get_host in ALLOWED_HOSTS %}
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (m, e, t, r, i, k, a) {
@@ -38,7 +38,7 @@
             })
             (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
 
-            ym(100526246, "init", {
+            ym({{ YANDEX_METRICA_ID }}, "init", {
                 clickmap: true,
                 trackLinks: true,
                 accurateTrackBounce: true,
@@ -46,7 +46,7 @@
             });
         </script>
         <noscript>
-            <div><img src="https://mc.yandex.ru/watch/100526246" style="position:absolute; left:-9999px;" alt=""/></div>
+            <div><img src="https://mc.yandex.ru/watch/{{ YANDEX_METRICA_ID }}" style="position:absolute; left:-9999px;" alt=""/></div>
         </noscript>
         <!-- /Yandex.Metrika counter -->
     {% endif %}

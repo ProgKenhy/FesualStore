@@ -10,6 +10,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DOMAIN_NAME = os.getenv('DOMAIN_NAME', 'http://localhost:8000')
+YANDEX_METRICA_ID = os.getenv('YANDEX_METRICA_ID')
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 
@@ -17,9 +18,7 @@ DEBUG = os.getenv("DEBUG", "False").lower() == 'true'
 
 TESTING = "test" in sys.argv
 
-# https://docs.djangoproject.com/en/5.0/ref/settings/#std:setting-ALLOWED_HOSTS
-allowed_hosts = os.getenv("ALLOWED_HOSTS", ".localhost,127.0.0.1,[::1]")
-ALLOWED_HOSTS = list(map(str.strip, allowed_hosts.split(",")))
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 # CSRF
 CSRF_TRUSTED_ORIGINS = ['https://fesualstore.ru', 'https://www.fesualstore.ru']
@@ -98,6 +97,8 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
 
+                'config.context_processors.allowed_hosts',
+                'config.context_processors.metrika_id',
                 'products.context_processors.categories',
                 'products.context_processors.baskets',
             ],
