@@ -71,4 +71,5 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Добавьте дополнительные данные в контекст при необходимости
+        context['title'] = self.object.name
         return context
