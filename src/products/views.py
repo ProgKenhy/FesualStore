@@ -31,6 +31,7 @@ class CatalogListView(CommonMixin, ListView):
         category_id = self.kwargs.get('category_id')
         if category_id:
             queryset = queryset.filter(category_id=category_id)
+        queryset = queryset.order_by('-id')
         filter = ProductFilter(self.request.GET, queryset=queryset)
         return filter.qs
 
