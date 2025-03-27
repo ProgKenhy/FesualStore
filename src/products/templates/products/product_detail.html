@@ -3,7 +3,28 @@
 
 {% block meta %}
     {{ block.super }}
-    <meta name="description" content="{{ product.description }}"/>
+    <meta property="og:title" content="{{ product.name }} | Fesual Store">
+    <meta property="og:description"
+          content="Винтажная одежда {{ product.name }}. {{ product.description|truncatechars:100 }}">
+    <meta property="og:image" content="{{ item.image.url }}">
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "{{ product.name }}",
+            "description": "{{ product.description|striptags|safe }}",
+            "brand": {
+                "@type": "Brand",
+                "name": "Fesual Store"
+            },
+            "offers": {
+                "@type": "Offer",
+                "price": "{{ product.price }}",
+                "priceCurrency": "RUB",
+                "availability": "https://schema.org/InStock"
+            }
+        }
+    </script>
     <!-- Добавление Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -109,7 +130,11 @@
 
                 <div class="alert alert-info" role="alert">
                     <h5 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Как заказать:</h5>
-                    <p>Чтобы приобрести этот товар, скопируйте название и отправьте его в наш Telegram.</p>
+                    <ol class="mb-3">
+                        <li>Нажмите <strong>"Копировать"</strong></li>
+                        <li>Перейдите в наш Telegram</li>
+                        <li>Вставьте название и отправьте!</li>
+                    </ol>
                     <hr>
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" id="productInfoField"
